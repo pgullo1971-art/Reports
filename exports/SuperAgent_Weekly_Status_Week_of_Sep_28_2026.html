@@ -1,0 +1,214 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SuperAgent Weekly Status — Week of September 28, 2026</title><meta name="color-scheme" content="light dark"><style>*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+/* Layout: sticky masthead, then summary before detail — headline, KPIs, attention + changes, runway, accounts by persona, priorities, ask. */
+:root{
+  --ink:#2D2321; --teal:#14988B; --teal-soft:#E4F5F3; --gold:#B8912A; --gold-soft:#FAF3E4;
+  --bg:#F7F6F5; --card:#FFFFFF; --wash:#F2F6F5; --line:#E8E4E1;
+  --text:#2D2321; --sub:#55504C; --muted:#7D7671;
+  --live:#14988B; --ok:#3F7FBF; --watch:#C98A12; --risk:#C4453A; --pre:#8A8580;
+  --risk-soft:#FBEDEB; --watch-soft:#FBF3E2; --ok-soft:#EAF1F9;
+  --tile:#2D2321; --tile-num:#4DD8C7; --tile-gold:#E3BE63; --tile-lab:#CFC9C5;
+  --f-display:'Poppins',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --f-body:'Poppins',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --f-data:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark; --bg:#1C1917; --card:#262220; --wash:#1F2B2A; --line:#3A3532;
+  --text:#F2EFEC; --sub:#C9C3BE; --muted:#9B958F; --teal-soft:#123C38; --gold-soft:#3A2F17;
+  --ok:#6FA8DC; --watch:#E0A63A; --risk:#E0776D; --pre:#9B958F; --live:#2FB5A7;
+  --risk-soft:#3A2220; --watch-soft:#3A2F17; --ok-soft:#1D2A38; --tile:#131110;
+}}
+:root[data-theme="dark"]{
+  color-scheme:dark; --bg:#1C1917; --card:#262220; --wash:#1F2B2A; --line:#3A3532;
+  --text:#F2EFEC; --sub:#C9C3BE; --muted:#9B958F; --teal-soft:#123C38; --gold-soft:#3A2F17;
+  --ok:#6FA8DC; --watch:#E0A63A; --risk:#E0776D; --pre:#9B958F; --live:#2FB5A7;
+  --risk-soft:#3A2220; --watch-soft:#3A2F17; --ok-soft:#1D2A38; --tile:#131110;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:13px;line-height:1.55;padding-inline:16px}
+.wrap{max-width:1060px;margin:0 auto;padding-block:0 56px}
+button,select,textarea{font-family:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.mono{font-family:var(--f-data);font-variant-numeric:tabular-nums}
+
+/* masthead */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--bg);border-bottom:3px solid var(--teal);margin-inline:-16px;padding:12px 16px}
+.top-in{max-width:1060px;margin:0 auto;display:flex;align-items:center;gap:12px 16px;flex-wrap:wrap}
+.top-in .grow{flex:1;min-width:200px}
+.eyebrow{font-size:10.5px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.7px}
+h1{margin:0;font-family:var(--f-display);font-size:19px;font-weight:800;letter-spacing:.1px;text-wrap:balance}
+.weekpick{display:flex;flex-direction:column;gap:2px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.weekpick select{font-size:12.5px;font-weight:600;text-transform:none;letter-spacing:0;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 8px;max-width:260px}
+.exp{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+#expmsg{font-size:10.5px;color:var(--muted);max-width:200px;text-align:right}
+.sync{font-size:11px;color:var(--muted);text-align:right;line-height:1.4}
+.sync b{color:var(--teal);font-weight:700}
+.sync .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--pre);margin-right:5px;vertical-align:1px}
+.sync .dot.on{background:var(--live)}
+
+/* headline */
+.lede{margin:22px 0 0;display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.lede h2{margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)}
+.lede p{margin:0;font-size:15px;line-height:1.6;max-width:72ch;text-wrap:pretty}
+.lede ul{margin:0;padding-left:18px;color:var(--sub);max-width:80ch}
+.lede li{margin-bottom:3px}
+.lede li::marker{color:var(--teal)}
+.histnote{background:var(--gold-soft);border-left:3px solid var(--gold);border-radius:4px;padding:8px 12px;font-size:12px;color:var(--sub)}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0 6px}
+.kpi{background:var(--tile);border-radius:10px;padding:14px}
+.kpi .n{display:block;font-size:28px;font-weight:800;line-height:1.05;color:var(--tile-num);font-variant-numeric:tabular-nums}
+.kpi .n.gold{color:var(--tile-gold)}
+.kpi .l{display:block;margin-top:4px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--tile-lab)}
+.kpi .d{display:block;margin-top:2px;font-size:10.5px;color:var(--tile-lab);opacity:.8}
+
+h3.sec{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin:30px 0 10px;display:flex;align-items:baseline;gap:8px}
+h3.sec small{font-weight:600;text-transform:none;letter-spacing:0;font-size:11px}
+
+/* attention + changes */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.panel h4{margin:0 0 8px;font-size:12.5px;font-weight:700;display:flex;align-items:center;gap:8px}
+.panel h4 .ct{font-family:var(--f-data);font-size:11px;color:var(--muted);font-weight:500}
+.flags,.changes{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.flag{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;padding:8px 10px;border-radius:8px;background:var(--wash)}
+.flag.risk{background:var(--risk-soft)}.flag.watch{background:var(--watch-soft)}.flag.info{background:var(--ok-soft)}
+.sev{font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#fff;border-radius:999px;padding:2px 8px;margin-top:2px;white-space:nowrap}
+.flag.risk .sev{background:var(--risk)}.flag.watch .sev{background:var(--watch)}.flag.info .sev{background:var(--ok)}
+.flag b{font-weight:700}
+.flag a,.chg a{color:inherit;text-decoration:none;border-bottom:1px dotted var(--muted)}
+.flag p{margin:0;font-size:12px;color:var(--sub)}
+.chg{display:grid;grid-template-columns:22px minmax(0,1fr);gap:8px;font-size:12px;color:var(--sub);padding:5px 0;border-bottom:1px dashed var(--line)}
+.chg:last-child{border-bottom:none}
+.chg i{font-style:normal;font-family:var(--f-data);font-weight:600;text-align:center;border-radius:5px;height:20px;line-height:20px;font-size:11px}
+.chg i.late{background:var(--risk-soft);color:var(--risk)}
+.chg i.early{background:var(--teal-soft);color:var(--teal)}
+.chg i.stat{background:var(--ok-soft);color:var(--ok)}
+.chg i.new{background:var(--gold-soft);color:var(--gold)}
+.chg b{color:var(--text)}
+.none{font-size:12px;color:var(--muted);padding:6px 0}
+
+/* runway */
+.runway{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 16px 12px;overflow-x:auto}
+.track{position:relative;min-width:640px}
+.months{position:relative;height:18px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.months span{position:absolute;top:0;padding-left:4px;border-left:1px solid var(--line);height:100%}
+.lanes{position:relative;border-top:1px solid var(--line)}
+.lane{position:relative;height:34px;border-bottom:1px dashed var(--line)}
+.lane:last-child{border-bottom:none}
+.lane .lab{position:absolute;left:0;top:8px;font-size:11px;font-weight:600;color:var(--sub);white-space:nowrap;max-width:140px;overflow:hidden;text-overflow:ellipsis}
+.plot{position:absolute;left:150px;right:0;top:0;bottom:0}
+.mark{position:absolute;top:9px;display:flex;align-items:center;gap:6px;transform:translateX(-7px);white-space:nowrap}
+.mark i{width:14px;height:14px;border-radius:50%;background:var(--c);border:3px solid var(--card);box-shadow:0 0 0 1px var(--c)}
+.mark.tent i{background:var(--card);border:2px dashed var(--c);box-shadow:none}
+.mark em{font-style:normal;font-family:var(--f-data);font-size:10.5px;color:var(--text)}
+.ghost{position:absolute;top:13px;width:8px;height:8px;border-radius:50%;border:1.5px solid var(--muted);transform:translateX(-4px);opacity:.7}
+.slip{position:absolute;top:16px;height:0;border-top:1.5px dotted var(--muted);opacity:.7}
+.pilot{position:absolute;top:12px;height:8px;border-radius:4px;background:var(--sub);opacity:.25}
+.today{position:absolute;top:0;bottom:0;width:0;border-left:2px solid var(--gold)}
+.today b{position:absolute;top:-17px;left:-16px;font-size:9.5px;color:var(--gold);font-weight:700;letter-spacing:.4px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--muted);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:5px}
+.legend i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+
+/* accounts */
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--sub);font-size:11.5px;font-weight:600;border-radius:999px;padding:6px 13px}
+.chip:hover{border-color:var(--teal);color:var(--teal)}
+.chip[aria-pressed="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+.persona{display:flex;align-items:center;gap:8px;margin:18px 0 10px;font-size:12.5px;font-weight:700}
+.persona .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.persona .count{font-weight:600;color:var(--muted);font-size:11px}
+.persona::after{content:"";flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.acct{background:var(--card);border:1px solid var(--line);border-radius:10px;display:flex;flex-direction:column;overflow:hidden;scroll-margin-top:110px;min-width:0}
+.acct.flash{box-shadow:0 0 0 3px var(--teal)}
+.acct-h{display:flex;gap:10px;align-items:flex-start;padding:13px 14px 10px;border-top:4px solid var(--c)}
+.acct-h .nm{flex:1;min-width:0}
+.acct-h strong{display:block;font-size:15px;font-weight:700;line-height:1.25}
+.acct-h small{display:block;font-size:11px;color:var(--muted);font-weight:500}
+.pill{flex-shrink:0;font-size:9.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:#fff;background:var(--c);border-radius:999px;padding:3px 9px}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border-block:1px solid var(--line)}
+.facts div{background:var(--wash);padding:8px 10px;min-width:0}
+.facts span{display:block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.facts b{display:block;font-size:12.5px;font-weight:700;overflow-wrap:anywhere}
+.facts b.mono{font-weight:500}
+.tags{display:flex;flex-wrap:wrap;gap:5px;padding:8px 14px 0}
+.tag{font-size:10px;font-weight:600;border-radius:999px;padding:2px 8px;border:1px solid var(--line);color:var(--sub)}
+.tag.risk{border-color:var(--risk);color:var(--risk)}
+.tag.watch{border-color:var(--watch);color:var(--watch)}
+.tag.info{border-color:var(--ok);color:var(--ok)}
+.tag.good{border-color:var(--teal);color:var(--teal)}
+.body{padding:10px 14px 12px;display:flex;flex-direction:column;gap:9px;flex:1}
+.body p{margin:0;color:var(--sub);font-size:12.5px}
+.k{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--teal);margin-bottom:2px}
+.body ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--sub)}
+.body li{margin-bottom:3px}
+.body li::marker{color:var(--teal)}
+.body li .dt{font-family:var(--f-data);font-size:10.5px;color:var(--muted);margin-right:4px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:6px}
+.stat{background:var(--wash);border-radius:8px;padding:8px 6px;text-align:center}
+.stat b{display:block;font-size:17px;font-weight:800;color:var(--teal);font-variant-numeric:tabular-nums}
+.stat span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.3px;color:var(--muted)}
+.watchbox{background:var(--gold-soft);border-left:3px solid var(--gold);border-radius:4px;padding:7px 10px;font-size:12px;color:var(--sub)}
+.watchbox .k{color:var(--gold)}
+.foot{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 14px 12px;font-size:10.5px;color:var(--muted);border-top:1px solid var(--line)}
+.foot .sp{flex:1}
+.foot .src{overflow-wrap:anywhere}
+
+/* priorities */
+.nwp{display:flex;flex-direction:column;gap:8px}
+.nwp-row{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.nwp-row a{background:var(--tile);color:#fff;font-weight:700;font-size:12px;padding:10px 14px;width:150px;flex-shrink:0;display:flex;align-items:center;text-decoration:none}
+.nwp-row a:hover{background:var(--teal)}
+.nwp-row div{padding:10px 14px;font-size:12.5px;color:var(--sub);min-width:0}
+
+/* ask */
+.ask{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.ask .presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.ask .row{display:flex;gap:8px;align-items:flex-end}
+.ask textarea{flex:1;min-width:0;font-size:13px;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-height:42px;resize:vertical}
+.btn{border:1px solid var(--teal);background:var(--teal);color:#fff;font-weight:600;font-size:12px;border-radius:8px;padding:8px 14px}
+.btn.ghost{background:transparent;color:var(--teal)}
+.btn[disabled]{opacity:.5;cursor:default}
+.answer{margin-top:12px;white-space:pre-wrap;font-size:13px;line-height:1.6;background:var(--wash);border-radius:8px;padding:12px 14px;max-height:520px;overflow:auto}
+.answer-bar{display:flex;gap:8px;align-items:center;margin-top:8px;font-size:11px;color:var(--muted)}
+.answer-bar .sp{flex:1}
+.copyrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;font-size:11px;color:var(--muted)}
+
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:10px;padding:28px;text-align:center;color:var(--muted)}
+footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;line-height:1.6}
+
+@media (max-width:760px){.grid,.duo{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.sync{text-align:left}}
+@media (max-width:560px){.nwp-row{flex-direction:column}.nwp-row a{width:auto}.ask .row{flex-direction:column;align-items:stretch}}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}.acct{transition:box-shadow .2s}}
+:root{--f-display:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--f-body:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;--f-data:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}.today b{white-space:nowrap;left:-22px}header.top{position:static}.snapnote{font-size:11px;color:var(--muted);text-align:right;line-height:1.4}.snapnote b{color:var(--teal)}@media print{header.top{border-bottom-width:2px}.acct,.panel,.runway{break-inside:avoid}}</style></head><body><header class="top"><div class="top-in"><div class="grow"><div class="eyebrow">ACTO · SuperAgent Implementation</div><h1>SuperAgent Implementation — Weekly Status</h1></div><div class="snapnote"><b>Week of September 28, 2026</b><br>Snapshot exported Sep 30, 2026, 6:11 PM</div></div></header><div class="wrap"><section class="lede" aria-labelledby="lede-h">
+    <h2 id="lede-h">Where we stand</h2>
+    
+    <p id="headline">Regeneron holds its Monday, October 5 go-live. REX was announced to the Commercial Training team on Tuesday, and Betty sent revised user and prompting guides today that she wants deployed next week. Corcept's pilot is running with 11 users, but a summary-recall feature shipping October 7 has Matt proposing a later go-live, and Jordan hasn't replied yet. Biogen's AI Foundations training moved up to October 16 ahead of October 21 access, Praxis still needs to confirm its pilot group and launch week, and Mineralys joins the portfolio.</p>
+    <ul id="highlights"><li>Regeneron: REX announced to ~27 Commercial Training staff; revised guides to deploy next week</li><li>Corcept: pilot live with 11 users; go-live of Oct 8 now in question</li><li>Biogen: AI Foundations training Oct 16, launch meeting Oct 23</li><li>Philips: Ramp Plus retrieval fix confirmed by the client</li><li>New account: Mineralys, functionality review Oct 1</li></ul>
+  </section><div class="kpis">
+    <div class="kpi"><span class="n" id="k-active">8</span><span class="l">Active accounts</span><span class="d" id="k-active-d">2 in Phase 1</span></div>
+    <div class="kpi"><span class="n" id="k-live">2</span><span class="l">Live in market</span><span class="d" id="k-live-d">Azurity, Philips</span></div>
+    <div class="kpi"><span class="n" id="k-30">4</span><span class="l">Go-lives next 30 days</span><span class="d" id="k-30-d">Next: Regeneron · Oct 5</span></div>
+    <div class="kpi"><span class="n gold" id="k-att">3</span><span class="l">Need attention</span><span class="d" id="k-att-d">See flags below</span></div>
+  </div><div class="duo">
+    <section class="panel" aria-labelledby="att-h">
+      <h4 id="att-h">Needs attention <span class="ct" id="att-ct">6 signals</span></h4>
+      <ul class="flags" id="flags"><li class="flag watch"><span class="sev">2 date changes</span><div><b><a href="#acct-regeneron" data-jump="regeneron">Regeneron</a></b><p>Go-live has moved 2 times on record (Sep 21 → Sep 28 → Oct 5).</p></div></li><li class="flag watch"><span class="sev">Date unconfirmed</span><div><b><a href="#acct-corcept" data-jump="corcept">Corcept Therapeutics</a></b><p>Target Oct 8 is 8 days out and not yet confirmed by the client.</p></div></li><li class="flag watch"><span class="sev">Watch</span><div><b><a href="#acct-corcept" data-jump="corcept">Corcept Therapeutics</a></b><p>Go-live will likely move to late October if Corcept accepts Matt's plan. FCR use is still limited to Jordan, Katie and Liz.</p></div></li><li class="flag watch"><span class="sev">Status down</span><div><b><a href="#acct-corcept" data-jump="corcept">Corcept Therapeutics</a></b><p>Moved from On track to Watch.</p></div></li><li class="flag watch"><span class="sev">Date unconfirmed</span><div><b><a href="#acct-praxis" data-jump="praxis">Praxis Medicines</a></b><p>Target Week of Oct 12 is 12 days out and not yet confirmed by the client.</p></div></li><li class="flag info"><span class="sev">Launch in 5d</span><div><b><a href="#acct-regeneron" data-jump="regeneron">Regeneron</a></b><p>Go-live Mon, Oct 5. Confirm comms, training and support coverage.</p></div></li></ul>
+    </section>
+    <section class="panel" aria-labelledby="chg-h">
+      <h4 id="chg-h">Changed since last week <span class="ct" id="chg-ct">vs Sep 21</span></h4>
+      <ul class="changes" id="changes"><li class="chg"><i class="new">+</i><span><b>Mineralys</b> added to the portfolio (Platform onboarding).</span></li><li class="chg"><i class="stat">↻</i><span><b>Corcept Therapeutics</b> status: On track → Watch.</span></li></ul>
+    </section>
+  </div><h3 class="sec">Go-live runway <small>Not yet dated: Mineralys, Ipsen</small></h3><div class="runway"><div class="track" id="runway"><div class="months" style="margin-left:150px"><span style="left:9.523809523809524%">Oct</span><span style="left:46.42857142857143%">Nov</span><span style="left:82.14285714285714%">Dec</span></div><div class="lanes"><div class="lane"><span class="lab" title="Regeneron">Regeneron</span><div class="plot"><div class="mark" style="--c:var(--ok);left:14.285714285714285%"><i></i><em>Oct 5</em></div></div></div><div class="lane"><span class="lab" title="Corcept Therapeutics">Corcept Therapeutics</span><div class="plot"><div class="pilot" style="left:5.952380952380952%;width:4.761904761904762%"></div><div class="mark tent" style="--c:var(--watch);left:17.857142857142858%"><i></i><em>Oct 8</em></div></div></div><div class="lane"><span class="lab" title="Praxis Medicines">Praxis Medicines</span><div class="plot"><div class="pilot" style="left:14.285714285714285%;width:4.761904761904763%"></div><div class="mark tent" style="--c:var(--ok);left:22.61904761904762%"><i></i><em>Week of Oct 12</em></div></div></div><div class="lane"><span class="lab" title="Biogen">Biogen</span><div class="plot"><div class="mark" style="--c:var(--ok);left:33.33333333333333%"><i></i><em>Oct 21 (access)</em></div></div></div></div><div class="today" style="left:calc(150px + (100% - 150px) * 0.08333333333333331)"><b>SEP 30</b></div></div>
+    <div class="legend">
+      <span><i style="--c:var(--ok)"></i>On track</span>
+      <span><i style="--c:var(--watch)"></i>Watch</span>
+      <span><i style="--c:var(--risk)"></i>At risk</span>
+      <span><i style="--c:var(--card);border:2px dashed var(--muted)"></i>Date not confirmed</span>
+      <span><i style="--c:transparent;border:1.5px solid var(--muted)"></i>Last week's date</span>
+      <span><i style="--c:var(--sub);border-radius:3px;width:18px;height:6px;opacity:.35"></i>Pilot / UAT</span>
+    </div>
+  </div><h3 class="sec">Account detail</h3><div id="list"><div class="persona"><span class="dot"></span>Medical Affairs<span class="count">(2)</span></div><div class="grid"><article class="acct" id="acct-biogen" style="--c:var(--ok)"><div class="acct-h"><div class="nm"><strong>Biogen</strong><small>Project Callisto · Medical Affairs</small></div><span class="pill">On track</span></div><div class="facts"><div><span>Go-live</span><b class="mono">Oct 21 (access)</b></div><div><span>Phase</span><b>Launch prep</b></div><div><span>Countdown</span><b class="mono">21 days</b></div></div><div class="body"><p>Users get Callisto access on Wednesday, October 21. The AI Foundations training moved up to Friday, October 16, with a launch meeting on October 23 and role-based training the week after.</p><div><div class="k">This week</div><ul><li><span class="dt">Sep 25</span>Rahcyne confirmed the ACTO training is the mandatory one; Biogen's other trainings are supplemental. Launch meeting requested for 10/23.</li><li><span class="dt">Sep 28</span>Scope set as Callisto Basics (pre-call planning, knowledge retrieval, medical insights, PACE); write-back moves to the Advanced iteration. MSL, MD and FD audiences get two one-hour sessions each.</li><li><span class="dt">Sep 29</span>AI Foundations training set for Oct 16, two live 60-minute sessions (10:00 and 2:00 ET), titled “AI Basics for Breakthroughs in Medical Affairs.”</li><li><span class="dt">Sep 29</span>Branded User Guide received from Rahcyne; Field Director training deck built.</li></ul></div><div><div class="k">Next steps</div><ul><li>Run-of-show session with Rahcyne (Sep 30)</li><li>Draft training content (Oct 1) and review with Nicole (Oct 2)</li><li>Callisto weekly sync (Oct 2)</li></ul></div><div class="watchbox"><div class="k">Watch item</div>Bilal still owes Biogen accounts and email addresses for the ACTO team, and has to approve the proposal not to record the live sessions. ACTO still needs SharePoint access to upload decks.</div></div><div class="foot"><span class="tag">Lead: Paul Gullo</span><span class="src">Sources: Callisto training and launch planning recap (Sep 28) · AI Foundations Training sync with Rahcyne (Sep 29)</span><span class="sp"></span><span class="mono">Updated Sep 30</span></div></article><article class="acct" id="acct-ipsen" style="--c:var(--gold)"><div class="acct-h"><div class="nm"><strong>Ipsen</strong><small>SuperAgent (knowledge retrieval) · Medical Affairs</small></div><span class="pill">Phase 1</span></div><div class="facts"><div><span>Go-live</span><b class="mono">TBD</b></div><div><span>Track</span><b>—</b></div><div><span>Phase</span><b class="mono">Discovery &amp; content</b></div></div><div class="body"><p>Phase 1 remains knowledge retrieval. The SuperAgent content discovery session with Denise Bentley and Spencer Hess runs Wednesday, September 30.</p><div><div class="k">This week</div><ul><li><span class="dt">Sep 30</span>Content discovery session scheduled for 2:30 PM with Denise Bentley, Spencer Hess and Matt.</li><li><span class="dt">Sep 24</span>Matt Dugan took the lead on Ipsen and owns ongoing updates.</li></ul></div><div><div class="k">Next steps</div><ul><li>Capture outcomes from the Sep 30 discovery session</li><li>Bi-weekly touchpoint (Tue, Oct 6)</li></ul></div></div><div class="foot"><span class="tag">Lead: Matt Dugan</span><span class="src">Sources: Google Calendar</span><span class="sp"></span><span class="mono">Updated Sep 30</span></div></article></div><div class="persona"><span class="dot"></span>Market Access<span class="count">(1)</span></div><div class="grid"><article class="acct" id="acct-regeneron" style="--c:var(--ok)"><div class="acct-h"><div class="nm"><strong>Regeneron</strong><small>REX (REgeneron access eXpert) · Market Access</small></div><span class="pill">On track</span></div><div class="facts"><div><span>Go-live</span><b class="mono">Mon, Oct 5</b></div><div><span>Phase</span><b>Launch prep</b></div><div><span>Countdown</span><b class="mono">5 days</b></div></div><div class="tags"><span class="tag watch">2 date changes</span><span class="tag info">Launch in 5d</span></div><div class="body"><p>Go-live holds at Monday, October 5, with an automatic deployment to all current users that week. The pilot group voted to name the agent REX, and Betty announced it to about 27 people on Commercial Training.</p><div class="stats"><div class="stat"><b>12</b><span>Pilot reps</span></div><div class="stat"><b>209</b><span>Pilot questions</span></div><div class="stat"><b>99.3%</b><span>Routing accuracy</span></div><div class="stat"><b>4.33/5</b><span>Pilot survey avg</span></div></div><div><div class="k">This week</div><ul><li><span class="dt">Sep 30</span>Betty sent the REX announcement plus revised User Guide and Prompting Guide (adds a note that REX does not provide payer policy or utilization management criteria) and asked us to deploy them next week. Paul replied to confirm whether to load them as a support skill and whether ACTO should send any user emails.</li><li><span class="dt">Sep 29</span>Agent officially named REX. Brand-team emails with the REX User Guide and Prompting Guide go out Oct 2 and Oct 9.</li><li><span class="dt">Sep 29</span>Success measures agreed: adoption, time back, accuracy and sentiment (eNPS). Surveys run after use rather than as a pre-launch baseline, 2–3 questions, with pulses at +2 and +6 weeks.</li><li><span class="dt">Sep 28</span>Betty sent a cross-analysis of Market Access assets REX can't pull from yet; new folders being added for field compliance, PSS resources and Dupixent.</li></ul></div><div><div class="k">Next steps</div><ul><li>Confirm with Betty: load revised guides as a support skill, and who sends user communications (Paul asked Sep 30)</li><li>Deploy revised User Guide and Prompting Guide with REX next week</li><li>Finish review of the MA asset cross-analysis</li><li>Stand up new CMS folders before Oct 5</li><li>Deploy to all users week of Oct 5</li></ul></div><div class="watchbox"><div class="k">Watch item</div>One pilot user expected payer-policy content, which REX doesn't cover. Set that expectation at rollout; Policy Reporter API raised as a future option. Our success-measures deck still shows Oct 15 and needs correcting.</div></div><div class="foot"><span class="tag">Lead: Paul Gullo</span><span class="src">Sources: Revised Regeneron User Guide and Prompting guide for SuperAgent (Sep 30) · Announcing the launch of our ACTO MA Super-Agent (Sep 29) · Introducing REX (Sep 29)</span><span class="sp"></span><span class="mono">Updated Sep 30</span></div></article></div><div class="persona"><span class="dot"></span>Sales<span class="count">(4)</span></div><div class="grid"><article class="acct" id="acct-corcept" style="--c:var(--watch)"><div class="acct-h"><div class="nm"><strong>Corcept Therapeutics</strong><small>Harvi · Sales</small></div><span class="pill">Watch</span></div><div class="facts"><div><span>Go-live</span><b class="mono">Thu, Oct 8 <span style="color:var(--muted)">(tbc)</span></b></div><div><span>Phase</span><b>Pilot / UAT</b></div><div><span>Countdown</span><b class="mono">8 days</b></div></div><div class="tags"><span class="tag watch">Date unconfirmed</span><span class="tag watch">Watch</span><span class="tag watch">Status down</span><span class="tag good">Pilot running</span></div><div class="body"><p>The one-week pilot launched to 11 Corcept users on September 28. A new summary-recall feature ships October 7 and isn't retroactive, so Matt proposed a readiness review on October 15 and a go-live based on that review. Jordan hasn't replied yet.</p><div class="stats"><div class="stat"><b>11</b><span>Pilot users</span></div><div class="stat"><b>4</b><span>Success measures</span></div></div><div><div class="k">This week</div><ul><li><span class="dt">Sep 28</span>Jordan launched the pilot to 11 users; all confirmed with access. Loreli added Sep 29.</li><li><span class="dt">Sep 28</span>Four success measures agreed: adoption, time back, coaching quality and user confidence. Coaching quality is the priority, judged by VP Sales Tom Burke and the ASDs. Readouts at 2 weeks, 30 and 60 days.</li><li><span class="dt">Sep 29</span>Matt proposed a revised plan: time survey Oct 2, rubric approved Oct 8, summary workflow validated by Oct 13, joint readiness review Oct 15.</li><li><span class="dt">Sep 29</span>Jordan asked for a Harvi quick-start guide.</li></ul></div><div><div class="k">Next steps</div><ul><li>Get Jordan's answer on the revised date plan</li><li>Approve survey wording (Oct 1)</li><li>Corcept to confirm licensed NTM and RM counts (Oct 2)</li><li>Adapt the Harvi quick-start guide</li></ul></div></div><div class="foot"><span class="tag">Lead: Paul Gullo</span><span class="src">Sources: ACTO Harvi – FCR Date Alignment (Sep 29) · Corcept / Harvi – Success Metrics Alignment (Sep 28)</span><span class="sp"></span><span class="mono">Updated Sep 30</span></div></article><article class="acct" id="acct-praxis" style="--c:var(--ok)"><div class="acct-h"><div class="nm"><strong>Praxis Medicines</strong><small>Prax (Voice FCR) · Sales</small></div><span class="pill">On track</span></div><div class="facts"><div><span>Go-live</span><b class="mono">Week of Oct 12 <span style="color:var(--muted)">(tbc)</span></b></div><div><span>Phase</span><b>Build</b></div><div><span>Countdown</span><b class="mono">12 days</b></div></div><div class="tags"><span class="tag watch">Date unconfirmed</span></div><div class="body"><p>Targeting the week of October 12, still awaiting confirmation. We proposed a pilot the week of October 5 and haven't heard back. FCRs are being rebranded as coaching touchpoints, and touchpoints now run daily at 11 AM.</p><div><div class="k">This week</div><ul><li><span class="dt">Sep 24</span>User cleanup under way; SCORM duplicate-registration hotfix coming. Julie preparing an executive pre-read and demo for the second week of October.</li><li><span class="dt">Sep 25</span>Pilot proposed for the week of Oct 5; no reply yet.</li><li><span class="dt">Sep 28</span>Julie shared the Praxis/ACTO project tracker; daily 11 AM touchpoints started.</li></ul></div><div><div class="k">Next steps</div><ul><li>Get Michael, Christena and Kevin to confirm the pilot group and dates</li><li>Confirm the week-of-Oct-12 go-live</li></ul></div></div><div class="foot"><span class="tag">Lead: Paul Gullo</span><span class="src">Sources: Praxis SuperAgent: Go-Live Timing and Pilot (Sep 25) · Otter: Praxis + ACTO Touchpoint (Sep 24)</span><span class="sp"></span><span class="mono">Updated Sep 30</span></div></article><article class="acct" id="acct-philips" style="--c:var(--live)"><div class="acct-h"><div class="nm"><strong>Philips Respironics</strong><small>LAICA · Sales</small></div><span class="pill">Live</span></div><div class="facts"><div><span>Status</span><b class="mono">Live</b></div><div><span>Track</span><b>Relaunch content refresh</b></div><div><span>Phase</span><b class="mono">Live — optimize</b></div></div><div class="body"><p>Live. LAICA wasn't surfacing the Ramp Plus Discussion Paper; Matt moved reference assets between skills and Dave Glowark confirmed the fix on September 29. Marketing and training are now working together on relaunch content.</p><div class="stats"><div class="stat"><b>1.2</b><span>Avg DAU (Sep 16–22)</span></div><div class="stat"><b>7</b><span>Sessions</span></div><div class="stat"><b>12.6s</b><span>Avg response</span></div></div><div><div class="k">This week</div><ul><li><span class="dt">Sep 29</span>Ramp Plus Discussion Paper retrieval fixed and confirmed by Dave Glowark.</li><li><span class="dt">Sep 28</span>Marketers and training team collaborating on relaunch content.</li></ul></div><div><div class="k">Next steps</div><ul><li>Weekly touchpoint (Thu, Oct 1)</li><li>Reconfigure the agent as new relaunch content lands</li></ul></div><div class="watchbox"><div class="k">Watch item</div>Cumulative feedback since launch is 62% negative (73 of 118 rated), mostly unanswered questions. Content refresh should bring it down; Kumar suggested a Salesforce CRM connector to keep content current.</div></div><div class="foot"><span class="tag">Lead: Ali Rizvi</span><span class="src">Sources: LAICA will not produce the Ramp Plus Discussion Paper (Sep 28–29)</span><span class="sp"></span><span class="mono">Updated Sep 30</span></div></article><article class="acct" id="acct-azurity" style="--c:var(--live)"><div class="acct-h"><div class="nm"><strong>Azurity (Currax)</strong><small>LAICA · Sales</small></div><span class="pill">Live</span></div><div class="facts"><div><span>Status</span><b class="mono">Live</b></div><div><span>Track</span><b>Cross-brand expansion scoping</b></div><div><span>Phase</span><b class="mono">Live — optimize</b></div></div><div class="body"><p>Live and stable. Currax is moving over to Azurity with new content; cross-brand expansion scoping continues, roughly 60–65 days to launch with Contrave as the first content focus.</p><div><div class="k">This week</div><ul><li><span class="dt">Sep 28</span>Confirmed Currax will move over to Azurity with new content.</li></ul></div><div><div class="k">Next steps</div><ul><li>Paul / Toni SuperAgents sync (Thu, Oct 1)</li><li>Set up the connector call Kumar offered</li></ul></div></div><div class="foot"><span class="tag">Lead: Toni Abraham</span><span class="src">Sources: Weekly report reply thread (Sep 28)</span><span class="sp"></span><span class="mono">Updated Sep 30</span></div></article></div><div class="persona"><span class="dot"></span>New / scoping<span class="count">(1)</span></div><div class="grid"><article class="acct" id="acct-mineralys" style="--c:var(--gold)"><div class="acct-h"><div class="nm"><strong>Mineralys</strong><small>SuperAgents (TBD) · New / scoping</small></div><span class="pill">Phase 1</span></div><div class="facts"><div><span>Go-live</span><b class="mono">TBD</b></div><div><span>Track</span><b>—</b></div><div><span>Phase</span><b class="mono">Platform onboarding</b></div></div><div class="tags"><span class="tag info">New this week</span></div><div class="body"><p>New account. Paul and Ryan met Katie Potteiger and Michael Hayes on September 23 to collect job descriptions as inputs for their SuperAgents, and Paul has admin access to the Mineralys ACTO instance.</p><div><div class="k">This week</div><ul><li><span class="dt">Sep 23</span>Kickoff on SuperAgent inputs (job descriptions).</li><li><span class="dt">Sep 24</span>Admin access granted to the Mineralys ACTO instance.</li></ul></div><div><div class="k">Next steps</div><ul><li>Review SuperAgent functionality with ~8 Mineralys stakeholders (Thu, Oct 1)</li></ul></div></div><div class="foot"><span class="tag">Lead: Paul Gullo</span><span class="src">Sources: JDs for Acto Superagent (Sep 23) · Google Calendar</span><span class="sp"></span><span class="mono">Updated Sep 30</span></div></article></div></div><h3 class="sec">Next week priorities</h3><div class="nwp" id="nwp"><div class="nwp-row"><a href="#acct-biogen" data-jump="biogen">Biogen</a><div>Run-of-show session with Rahcyne (Sep 30); Draft training content (Oct 1) and review with Nicole (Oct 2); Callisto weekly sync (Oct 2)</div></div><div class="nwp-row"><a href="#acct-ipsen" data-jump="ipsen">Ipsen</a><div>Capture outcomes from the Sep 30 discovery session; Bi-weekly touchpoint (Tue, Oct 6)</div></div><div class="nwp-row"><a href="#acct-regeneron" data-jump="regeneron">Regeneron</a><div>Confirm with Betty: load revised guides as a support skill, and who sends user communications (Paul asked Sep 30); Deploy revised User Guide and Prompting Guide with REX next week; Finish review of the MA asset cross-analysis; Stand up new CMS folders before Oct 5; Deploy to all users week of Oct 5</div></div><div class="nwp-row"><a href="#acct-corcept" data-jump="corcept">Corcept Therapeutics</a><div>Get Jordan's answer on the revised date plan; Approve survey wording (Oct 1); Corcept to confirm licensed NTM and RM counts (Oct 2); Adapt the Harvi quick-start guide</div></div><div class="nwp-row"><a href="#acct-praxis" data-jump="praxis">Praxis Medicines</a><div>Get Michael, Christena and Kevin to confirm the pilot group and dates; Confirm the week-of-Oct-12 go-live</div></div><div class="nwp-row"><a href="#acct-philips" data-jump="philips">Philips Respironics</a><div>Weekly touchpoint (Thu, Oct 1); Reconfigure the agent as new relaunch content lands</div></div><div class="nwp-row"><a href="#acct-azurity" data-jump="azurity">Azurity (Currax)</a><div>Paul / Toni SuperAgents sync (Thu, Oct 1); Set up the connector call Kumar offered</div></div><div class="nwp-row"><a href="#acct-mineralys" data-jump="mineralys">Mineralys</a><div>Review SuperAgent functionality with ~8 Mineralys stakeholders (Thu, Oct 1)</div></div></div><footer>SuperAgent Implementation Weekly Status · Week of September 28, 2026 · Snapshot of the live SuperAgent Weekly Pulse, exported Sep 30, 2026, 6:11 PM<br>Flags and countdowns reflect the data as of export · ACTO Confidential</footer></div></body></html>
