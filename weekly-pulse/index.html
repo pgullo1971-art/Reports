@@ -335,7 +335,8 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
       if(shift>0) out.push({sev:shift>=7?"risk":"watch",tag:"Slipped "+shift+"d",text:"Go-live moved from "+fmt(pd)+" to "+fmt(g)+"."});
     }
     var hist=goLiveHistory(a.id, v.weekOf); var cur=a.goLive; if(cur&&hist[hist.length-1]!==cur) hist.push(cur);
-    if(hist.length>=3 && a.status!=="live") out.push({sev:"watch",tag:(hist.length-1)+" date changes",text:"Go-live has moved "+(hist.length-1)+" times on record ("+hist.map(function(x){return fmt(parse(x))}).join(" → ")+")."});
+    // repeat-slip history only matters while the current date is still unconfirmed
+    if(hist.length>=3 && a.status!=="live" && a.goLiveConfirmed!==true) out.push({sev:"watch",tag:(hist.length-1)+" date changes",text:"Go-live has moved "+(hist.length-1)+" times on record ("+hist.map(function(x){return fmt(parse(x))}).join(" → ")+")."});
     if(g && a.status!=="live" && dl>=0 && dl<=7) out.push({sev:"info",tag:dl===0?"Launches today":"Launch in "+dl+"d",text:"Go-live "+fmt(g,true)+". Confirm comms, training and support coverage."});
     if(g && a.status!=="live" && a.goLiveConfirmed===false && dl!=null && dl<=21 && dl>=0) out.push({sev:"watch",tag:"Date unconfirmed",text:"Target "+(a.goLiveLabel||fmt(g))+" is "+dl+" days out and not yet confirmed by the client."});
     if(a.status==="watch" && a.watch) out.push({sev:"watch",tag:"Watch",text:a.watch});
