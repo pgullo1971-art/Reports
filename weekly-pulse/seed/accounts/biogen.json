@@ -1,0 +1,43 @@
+{
+ "order": 1,
+ "name": "Biogen",
+ "agent": "Project Callisto",
+ "persona": "Medical Affairs",
+ "status": "on-track",
+ "phase": "Launch prep",
+ "goLive": "2026-10-21",
+ "goLiveLabel": "Oct 21 (access)",
+ "goLiveConfirmed": true,
+ "owner": "Paul Gullo",
+ "summary": "Users get Callisto access on Wednesday, October 21. The AI Foundations training moved up to Friday, October 16, with a launch meeting on October 23 and role-based training the week after.",
+ "updates": [
+  {
+   "date": "2026-09-25",
+   "text": "Rahcyne confirmed the ACTO training is the mandatory one; Biogen's other trainings are supplemental. Launch meeting requested for 10/23."
+  },
+  {
+   "date": "2026-09-28",
+   "text": "Scope set as Callisto Basics (pre-call planning, knowledge retrieval, medical insights, PACE); write-back moves to the Advanced iteration. MSL, MD and FD audiences get two one-hour sessions each."
+  },
+  {
+   "date": "2026-09-29",
+   "text": "AI Foundations training set for Oct 16, two live 60-minute sessions (10:00 and 2:00 ET), titled “AI Basics for Breakthroughs in Medical Affairs.”"
+  },
+  {
+   "date": "2026-09-29",
+   "text": "Branded User Guide received from Rahcyne; Field Director training deck built."
+  }
+ ],
+ "nextSteps": [
+  "Run-of-show session with Rahcyne (Sep 30)",
+  "Draft training content (Oct 1) and review with Nicole (Oct 2)",
+  "Callisto weekly sync (Oct 2)"
+ ],
+ "watch": "Bilal still owes Biogen accounts and email addresses for the ACTO team, and has to approve the proposal not to record the live sessions. ACTO still needs SharePoint access to upload decks.",
+ "metrics": [],
+ "sources": [
+  "Callisto training and launch planning recap (Sep 28)",
+  "AI Foundations Training sync with Rahcyne (Sep 29)"
+ ],
+ "updatedAt": "2026-09-30T01:51:17Z"
+}

@@ -1,0 +1,32 @@
+{
+ "order": 2,
+ "name": "Ipsen",
+ "agent": "SuperAgent (knowledge retrieval)",
+ "persona": "Medical Affairs",
+ "status": "pre",
+ "phase": "Discovery & content",
+ "goLive": "",
+ "goLiveLabel": "TBD",
+ "owner": "Matt Dugan",
+ "summary": "Phase 1 remains knowledge retrieval. The SuperAgent content discovery session with Denise Bentley and Spencer Hess runs Wednesday, September 30.",
+ "updates": [
+  {
+   "date": "2026-09-30",
+   "text": "Content discovery session scheduled for 2:30 PM with Denise Bentley, Spencer Hess and Matt."
+  },
+  {
+   "date": "2026-09-24",
+   "text": "Matt Dugan took the lead on Ipsen and owns ongoing updates."
+  }
+ ],
+ "nextSteps": [
+  "Capture outcomes from the Sep 30 discovery session",
+  "Bi-weekly touchpoint (Tue, Oct 6)"
+ ],
+ "watch": "",
+ "metrics": [],
+ "sources": [
+  "Google Calendar"
+ ],
+ "updatedAt": "2026-09-30T01:51:17Z"
+}

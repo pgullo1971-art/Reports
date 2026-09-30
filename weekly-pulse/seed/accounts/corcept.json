@@ -1,0 +1,55 @@
+{
+ "order": 4,
+ "name": "Corcept Therapeutics",
+ "agent": "Harvi",
+ "persona": "Sales",
+ "status": "watch",
+ "phase": "Pilot / UAT",
+ "goLive": "2026-10-08",
+ "goLiveLabel": "",
+ "goLiveConfirmed": false,
+ "owner": "Paul Gullo",
+ "pilotStart": "2026-09-28",
+ "pilotEnd": "2026-10-02",
+ "summary": "The one-week pilot launched to 11 Corcept users on September 28. A new summary-recall feature ships October 7 and isn't retroactive, so Matt proposed a readiness review on October 15 and a go-live based on that review. Jordan hasn't replied yet.",
+ "updates": [
+  {
+   "date": "2026-09-28",
+   "text": "Jordan launched the pilot to 11 users; all confirmed with access. Loreli added Sep 29."
+  },
+  {
+   "date": "2026-09-28",
+   "text": "Four success measures agreed: adoption, time back, coaching quality and user confidence. Coaching quality is the priority, judged by VP Sales Tom Burke and the ASDs. Readouts at 2 weeks, 30 and 60 days."
+  },
+  {
+   "date": "2026-09-29",
+   "text": "Matt proposed a revised plan: time survey Oct 2, rubric approved Oct 8, summary workflow validated by Oct 13, joint readiness review Oct 15."
+  },
+  {
+   "date": "2026-09-29",
+   "text": "Jordan asked for a Harvi quick-start guide."
+  }
+ ],
+ "nextSteps": [
+  "Get Jordan's answer on the revised date plan",
+  "Approve survey wording (Oct 1)",
+  "Corcept to confirm licensed NTM and RM counts (Oct 2)",
+  "Adapt the Harvi quick-start guide"
+ ],
+ "watch": "Go-live will likely move to late October if Corcept accepts Matt's plan. FCR use is still limited to Jordan, Katie and Liz.",
+ "metrics": [
+  {
+   "label": "Pilot users",
+   "value": "11"
+  },
+  {
+   "label": "Success measures",
+   "value": "4"
+  }
+ ],
+ "sources": [
+  "ACTO Harvi – FCR Date Alignment (Sep 29)",
+  "Corcept / Harvi – Success Metrics Alignment (Sep 28)"
+ ],
+ "updatedAt": "2026-09-30T01:51:17Z"
+}

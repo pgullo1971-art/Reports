@@ -1,0 +1,29 @@
+{
+ "order": 7,
+ "name": "Azurity (Currax)",
+ "agent": "LAICA",
+ "persona": "Sales",
+ "status": "live",
+ "phase": "Live — optimize",
+ "goLive": "",
+ "goLiveLabel": "Live",
+ "track": "Cross-brand expansion scoping",
+ "owner": "Toni Abraham",
+ "summary": "Live and stable. Currax is moving over to Azurity with new content; cross-brand expansion scoping continues, roughly 60–65 days to launch with Contrave as the first content focus.",
+ "updates": [
+  {
+   "date": "2026-09-28",
+   "text": "Confirmed Currax will move over to Azurity with new content."
+  }
+ ],
+ "nextSteps": [
+  "Paul / Toni SuperAgents sync (Thu, Oct 1)",
+  "Set up the connector call Kumar offered"
+ ],
+ "watch": "",
+ "metrics": [],
+ "sources": [
+  "Weekly report reply thread (Sep 28)"
+ ],
+ "updatedAt": "2026-09-30T01:51:17Z"
+}

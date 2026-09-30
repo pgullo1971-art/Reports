@@ -1,0 +1,101 @@
+{
+ "asOf": "2026-09-18",
+ "headline": "Biogen asked that its medical team complete AI-literacy training before Callisto goes live. Regeneron's pilot finished with 99.3% routing accuracy, Corcept holds October 1, and Praxis targets October 12.",
+ "accounts": {
+  "biogen": {
+   "name": "Biogen",
+   "agent": "Project Callisto",
+   "persona": "Medical Affairs",
+   "status": "on-track",
+   "phase": "Build",
+   "goLive": "",
+   "goLiveLabel": "Late October",
+   "goLiveConfirmed": true,
+   "order": 1,
+   "summary": "AI-literacy training underway with Mark and team ahead of go-live.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "ipsen": {
+   "name": "Ipsen",
+   "agent": "SuperAgent (knowledge retrieval)",
+   "persona": "Medical Affairs",
+   "status": "pre",
+   "phase": "Discovery & content",
+   "goLive": "",
+   "goLiveLabel": "TBD",
+   "order": 2,
+   "summary": "Phase 1 scope agreed: knowledge retrieval, 3 TAs.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "regeneron": {
+   "name": "Regeneron",
+   "agent": "SuperAgent Implementation",
+   "persona": "Market Access",
+   "status": "on-track",
+   "phase": "Pilot / UAT",
+   "goLive": "2026-09-28",
+   "goLiveLabel": "~Sep 28",
+   "goLiveConfirmed": true,
+   "order": 3,
+   "summary": "Pilot complete with 99.3% routing accuracy.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "corcept": {
+   "name": "Corcept Therapeutics",
+   "agent": "Harvi",
+   "persona": "Sales",
+   "status": "on-track",
+   "phase": "Pilot / UAT",
+   "goLive": "2026-10-01",
+   "goLiveLabel": "",
+   "goLiveConfirmed": true,
+   "order": 4,
+   "summary": "UAT fixes continuing, no serious blockers.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "praxis": {
+   "name": "Praxis Medicines",
+   "agent": "Prax (Voice FCR)",
+   "persona": "Sales",
+   "status": "on-track",
+   "phase": "Build",
+   "goLive": "2026-10-12",
+   "goLiveLabel": "Oct 12",
+   "goLiveConfirmed": false,
+   "order": 5,
+   "summary": "Slight contract-side delay; MVP build continues.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "philips": {
+   "name": "Philips Respironics",
+   "agent": "LAICA",
+   "persona": "Sales",
+   "status": "live",
+   "phase": "Live — optimize",
+   "goLive": "",
+   "goLiveLabel": "Live",
+   "order": 6,
+   "summary": "Live and stable; new content workflow agreed.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "azurity": {
+   "name": "Azurity (Currax)",
+   "agent": "LAICA",
+   "persona": "Sales",
+   "status": "live",
+   "phase": "Live — optimize",
+   "goLive": "",
+   "goLiveLabel": "Live",
+   "order": 7,
+   "summary": "Live and stable; cross-brand expansion kicked off.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  }
+ }
+}

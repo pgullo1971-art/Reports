@@ -1,0 +1,40 @@
+{
+ "order": 5,
+ "name": "Praxis Medicines",
+ "agent": "Prax (Voice FCR)",
+ "persona": "Sales",
+ "status": "on-track",
+ "phase": "Build",
+ "goLive": "2026-10-12",
+ "goLiveLabel": "Week of Oct 12",
+ "goLiveConfirmed": false,
+ "owner": "Paul Gullo",
+ "pilotStart": "2026-10-05",
+ "pilotEnd": "2026-10-09",
+ "summary": "Targeting the week of October 12, still awaiting confirmation. We proposed a pilot the week of October 5 and haven't heard back. FCRs are being rebranded as coaching touchpoints, and touchpoints now run daily at 11 AM.",
+ "updates": [
+  {
+   "date": "2026-09-24",
+   "text": "User cleanup under way; SCORM duplicate-registration hotfix coming. Julie preparing an executive pre-read and demo for the second week of October."
+  },
+  {
+   "date": "2026-09-25",
+   "text": "Pilot proposed for the week of Oct 5; no reply yet."
+  },
+  {
+   "date": "2026-09-28",
+   "text": "Julie shared the Praxis/ACTO project tracker; daily 11 AM touchpoints started."
+  }
+ ],
+ "nextSteps": [
+  "Get Michael, Christena and Kevin to confirm the pilot group and dates",
+  "Confirm the week-of-Oct-12 go-live"
+ ],
+ "watch": "",
+ "metrics": [],
+ "sources": [
+  "Praxis SuperAgent: Go-Live Timing and Pilot (Sep 25)",
+  "Otter: Praxis + ACTO Touchpoint (Sep 24)"
+ ],
+ "updatedAt": "2026-09-30T01:51:17Z"
+}

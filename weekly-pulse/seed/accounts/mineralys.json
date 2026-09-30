@@ -1,0 +1,32 @@
+{
+ "order": 8,
+ "name": "Mineralys",
+ "agent": "SuperAgents (TBD)",
+ "persona": "New / scoping",
+ "status": "pre",
+ "phase": "Platform onboarding",
+ "goLive": "",
+ "goLiveLabel": "TBD",
+ "owner": "Paul Gullo",
+ "summary": "New account. Paul and Ryan met Katie Potteiger and Michael Hayes on September 23 to collect job descriptions as inputs for their SuperAgents, and Paul has admin access to the Mineralys ACTO instance.",
+ "updates": [
+  {
+   "date": "2026-09-23",
+   "text": "Kickoff on SuperAgent inputs (job descriptions)."
+  },
+  {
+   "date": "2026-09-24",
+   "text": "Admin access granted to the Mineralys ACTO instance."
+  }
+ ],
+ "nextSteps": [
+  "Review SuperAgent functionality with ~8 Mineralys stakeholders (Thu, Oct 1)"
+ ],
+ "watch": "",
+ "metrics": [],
+ "sources": [
+  "JDs for Acto Superagent (Sep 23)",
+  "Google Calendar"
+ ],
+ "updatedAt": "2026-09-30T01:51:17Z"
+}

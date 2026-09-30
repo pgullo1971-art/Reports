@@ -1,0 +1,101 @@
+{
+ "asOf": "2026-09-11",
+ "headline": "Biogen's September 8 go-live did not happen after a Salesforce patch issue on Biogen's side; the new target is the week of September 28. Corcept confirmed October 1, Praxis's pilot is underway, and Regeneron's pilot is live.",
+ "accounts": {
+  "biogen": {
+   "name": "Biogen",
+   "agent": "Project Callisto",
+   "persona": "Medical Affairs",
+   "status": "at-risk",
+   "phase": "Build",
+   "goLive": "2026-09-28",
+   "goLiveLabel": "Week of Sep 28",
+   "goLiveConfirmed": true,
+   "order": 1,
+   "summary": "Sept 8 go-live missed after a Salesforce Winter '26 patch issue affecting iPad/Veeva login.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "ipsen": {
+   "name": "Ipsen",
+   "agent": "SuperAgent (knowledge retrieval)",
+   "persona": "Medical Affairs",
+   "status": "pre",
+   "phase": "Platform onboarding",
+   "goLive": "",
+   "goLiveLabel": "TBD",
+   "order": 2,
+   "summary": "Targeting Q4; overview call Sept 16.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "regeneron": {
+   "name": "Regeneron",
+   "agent": "SuperAgent Implementation",
+   "persona": "Market Access",
+   "status": "on-track",
+   "phase": "Pilot / UAT",
+   "goLive": "2026-09-21",
+   "goLiveLabel": "",
+   "goLiveConfirmed": true,
+   "order": 3,
+   "summary": "Pilot live, closing content gaps.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "corcept": {
+   "name": "Corcept Therapeutics",
+   "agent": "Harvi",
+   "persona": "Sales",
+   "status": "on-track",
+   "phase": "Pilot / UAT",
+   "goLive": "2026-10-01",
+   "goLiveLabel": "",
+   "goLiveConfirmed": true,
+   "order": 4,
+   "summary": "Go-live confirmed for October 1, off September 16.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "praxis": {
+   "name": "Praxis Medicines",
+   "agent": "Prax (Voice FCR)",
+   "persona": "Sales",
+   "status": "on-track",
+   "phase": "Pilot / UAT",
+   "goLive": "2026-09-23",
+   "goLiveLabel": "",
+   "goLiveConfirmed": false,
+   "order": 5,
+   "summary": "Pilot underway Sept 9–18, FCR testing live.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "philips": {
+   "name": "Philips Respironics",
+   "agent": "LAICA",
+   "persona": "Sales",
+   "status": "live",
+   "phase": "Live — optimize",
+   "goLive": "",
+   "goLiveLabel": "Live",
+   "order": 6,
+   "summary": "Live and stable.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "azurity": {
+   "name": "Azurity (Currax)",
+   "agent": "LAICA",
+   "persona": "Sales",
+   "status": "live",
+   "phase": "Live — optimize",
+   "goLive": "",
+   "goLiveLabel": "Live",
+   "order": 7,
+   "summary": "Live and stable.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  }
+ }
+}

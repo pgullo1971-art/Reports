@@ -1,0 +1,58 @@
+{
+ "order": 3,
+ "name": "Regeneron",
+ "agent": "REX (REgeneron access eXpert)",
+ "persona": "Market Access",
+ "status": "on-track",
+ "phase": "Launch prep",
+ "goLive": "2026-10-05",
+ "goLiveLabel": "",
+ "goLiveConfirmed": true,
+ "owner": "Paul Gullo",
+ "pilotStart": "2026-09-08",
+ "pilotEnd": "2026-09-18",
+ "summary": "Go-live holds at Monday, October 5, with an automatic deployment to all current users that week. The pilot group voted to name the agent REX, and Betty announced it to about 27 people on Commercial Training.",
+ "updates": [
+  {
+   "date": "2026-09-29",
+   "text": "Agent officially named REX. Brand-team emails with the REX User Guide and Prompting Guide go out Oct 2 and Oct 9."
+  },
+  {
+   "date": "2026-09-29",
+   "text": "Success measures agreed: adoption, time back, accuracy and sentiment (eNPS). Surveys run after use rather than as a pre-launch baseline, 2–3 questions, with pulses at +2 and +6 weeks."
+  },
+  {
+   "date": "2026-09-28",
+   "text": "Betty sent a cross-analysis of Market Access assets REX can't pull from yet; new folders being added for field compliance, PSS resources and Dupixent."
+  }
+ ],
+ "nextSteps": [
+  "Finish review of the MA asset cross-analysis",
+  "Stand up new CMS folders before Oct 5",
+  "Deploy to all users week of Oct 5"
+ ],
+ "watch": "One pilot user expected payer-policy content, which REX doesn't cover. Set that expectation at rollout; Policy Reporter API raised as a future option. Our success-measures deck still shows Oct 15 and needs correcting.",
+ "metrics": [
+  {
+   "label": "Pilot reps",
+   "value": "12"
+  },
+  {
+   "label": "Pilot questions",
+   "value": "209"
+  },
+  {
+   "label": "Routing accuracy",
+   "value": "99.3%"
+  },
+  {
+   "label": "Pilot survey avg",
+   "value": "4.33/5"
+  }
+ ],
+ "sources": [
+  "Introducing REX (Sep 29)",
+  "Zoom summary: Defining Success Metrics (Sep 29)"
+ ],
+ "updatedAt": "2026-09-30T01:51:17Z"
+}

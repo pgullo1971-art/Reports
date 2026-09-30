@@ -1,0 +1,101 @@
+{
+ "asOf": "2026-09-25",
+ "headline": "Biogen has a firm October 21 go-live. Regeneron moved one week to October 5 to finish its content audit, Corcept starts a one-week pilot September 28 ahead of an expected October 8 go-live, and Praxis targets the week of October 12.",
+ "accounts": {
+  "biogen": {
+   "name": "Biogen",
+   "agent": "Project Callisto",
+   "persona": "Medical Affairs",
+   "status": "on-track",
+   "phase": "Launch prep",
+   "goLive": "2026-10-21",
+   "goLiveLabel": "Oct 21 (firm)",
+   "goLiveConfirmed": true,
+   "order": 1,
+   "summary": "Firm go-live October 21, with AI foundation training the week of Oct 19, then persona training.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "ipsen": {
+   "name": "Ipsen",
+   "agent": "SuperAgent (knowledge retrieval)",
+   "persona": "Medical Affairs",
+   "status": "pre",
+   "phase": "Discovery & content",
+   "goLive": "",
+   "goLiveLabel": "TBD",
+   "order": 2,
+   "summary": "Preparing CMS content for the knowledge base; Matt Dugan leading.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "regeneron": {
+   "name": "Regeneron",
+   "agent": "SuperAgent Implementation",
+   "persona": "Market Access",
+   "status": "on-track",
+   "phase": "Launch prep",
+   "goLive": "2026-10-05",
+   "goLiveLabel": "",
+   "goLiveConfirmed": true,
+   "order": 3,
+   "summary": "Moved one week to October 5 to finish content audit and testing.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "corcept": {
+   "name": "Corcept Therapeutics",
+   "agent": "Harvi",
+   "persona": "Sales",
+   "status": "on-track",
+   "phase": "Pilot / UAT",
+   "goLive": "2026-10-08",
+   "goLiveLabel": "~Oct 8",
+   "goLiveConfirmed": true,
+   "order": 4,
+   "summary": "One-week pilot starts September 28; go-live expected ~October 8.",
+   "pilotStart": "2026-09-28",
+   "pilotEnd": "2026-10-02"
+  },
+  "praxis": {
+   "name": "Praxis Medicines",
+   "agent": "Prax (Voice FCR)",
+   "persona": "Sales",
+   "status": "on-track",
+   "phase": "Build",
+   "goLive": "2026-10-12",
+   "goLiveLabel": "Week of Oct 12",
+   "goLiveConfirmed": false,
+   "order": 5,
+   "summary": "FCRs working; very strong client feedback. Awaiting go-live confirmation.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "philips": {
+   "name": "Philips Respironics",
+   "agent": "LAICA",
+   "persona": "Sales",
+   "status": "live",
+   "phase": "Live — optimize",
+   "goLive": "",
+   "goLiveLabel": "Live",
+   "order": 6,
+   "summary": "Live; team aligned on next steps for new content.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  },
+  "azurity": {
+   "name": "Azurity (Currax)",
+   "agent": "LAICA",
+   "persona": "Sales",
+   "status": "live",
+   "phase": "Live — optimize",
+   "goLive": "",
+   "goLiveLabel": "Live",
+   "order": 7,
+   "summary": "Live and stable; cross-brand scoping in progress.",
+   "pilotStart": "",
+   "pilotEnd": ""
+  }
+ }
+}

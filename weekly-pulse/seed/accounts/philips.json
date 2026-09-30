@@ -1,0 +1,46 @@
+{
+ "order": 6,
+ "name": "Philips Respironics",
+ "agent": "LAICA",
+ "persona": "Sales",
+ "status": "live",
+ "phase": "Live — optimize",
+ "goLive": "",
+ "goLiveLabel": "Live",
+ "track": "Relaunch content refresh",
+ "owner": "Ali Rizvi",
+ "summary": "Live. LAICA wasn't surfacing the Ramp Plus Discussion Paper; Matt moved reference assets between skills and Dave Glowark confirmed the fix on September 29. Marketing and training are now working together on relaunch content.",
+ "updates": [
+  {
+   "date": "2026-09-29",
+   "text": "Ramp Plus Discussion Paper retrieval fixed and confirmed by Dave Glowark."
+  },
+  {
+   "date": "2026-09-28",
+   "text": "Marketers and training team collaborating on relaunch content."
+  }
+ ],
+ "nextSteps": [
+  "Weekly touchpoint (Thu, Oct 1)",
+  "Reconfigure the agent as new relaunch content lands"
+ ],
+ "watch": "Cumulative feedback since launch is 62% negative (73 of 118 rated), mostly unanswered questions. Content refresh should bring it down; Kumar suggested a Salesforce CRM connector to keep content current.",
+ "metrics": [
+  {
+   "label": "Avg DAU (Sep 16–22)",
+   "value": "1.2"
+  },
+  {
+   "label": "Sessions",
+   "value": "7"
+  },
+  {
+   "label": "Avg response",
+   "value": "12.6s"
+  }
+ ],
+ "sources": [
+  "LAICA will not produce the Ramp Plus Discussion Paper (Sep 28–29)"
+ ],
+ "updatedAt": "2026-09-30T01:51:17Z"
+}
