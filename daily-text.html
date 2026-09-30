@@ -1,0 +1,118 @@
+<title>Daily Text Button</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+  /* Layout: one centered card holding today's date and a single large button. */
+  :root {
+    --bg: #eef2f5;
+    --card: #ffffff;
+    --fg: #1d2a33;
+    --muted: #5b6b77;
+    --line: #d5dde3;
+    --accent: #2f5d7c;
+    --accent-hover: #244a63;
+    --on-accent: #ffffff;
+    --display: "Literata", Georgia, "Times New Roman", serif;
+    --body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #11181d; --card: #1a242b; --fg: #e4ebef; --muted: #9aabb6;
+      --line: #2b3943; --accent: #7fb2d4; --accent-hover: #9cc5e0; --on-accent: #0e1a22;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #11181d; --card: #1a242b; --fg: #e4ebef; --muted: #9aabb6;
+    --line: #2b3943; --accent: #7fb2d4; --accent-hover: #9cc5e0; --on-accent: #0e1a22;
+    color-scheme: dark;
+  }
+
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.5;
+    display: grid;
+    place-items: center;
+    padding-inline: 16px;
+    padding-block: 32px;
+    box-sizing: border-box;
+  }
+  .card {
+    width: 100%;
+    max-width: 26rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 2rem 1.75rem;
+    display: grid;
+    gap: 1.25rem;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .eyebrow {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.9rem;
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+  .btn {
+    display: block;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--body);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.15s ease;
+  }
+  .btn:hover { background: var(--accent-hover); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .note {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .note a { color: var(--accent); }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+
+<main class="card">
+  <p class="eyebrow">Examining the Scriptures Daily</p>
+  <h1 id="today">Today</h1>
+  <a id="go" class="btn" href="https://wol.jw.org/en/wol/h/r1/lp-e" target="_blank" rel="noopener">Read today’s text on jw.org</a>
+  <p class="note">Opens the Watchtower Online Library at <span id="path">today’s date</span>.</p>
+</main>
+
+<script>
+  // Point the button at today's daily text, using the viewer's local date.
+  function update() {
+    const d = new Date();
+    const y = d.getFullYear(), m = d.getMonth() + 1, day = d.getDate();
+    document.getElementById("go").href =
+      "https://wol.jw.org/en/wol/dt/r1/lp-e/" + y + "/" + m + "/" + day;
+    document.getElementById("today").textContent = d.toLocaleDateString(undefined, {
+      weekday: "long", month: "long", day: "numeric", year: "numeric"
+    });
+    document.getElementById("path").textContent = y + "/" + m + "/" + day;
+  }
+  update();
+  // Refresh if the page stays open past midnight.
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) update(); });
+</script>
