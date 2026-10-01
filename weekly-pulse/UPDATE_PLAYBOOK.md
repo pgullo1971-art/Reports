@@ -58,6 +58,10 @@ So keep the data factual and current, and the analysis follows.
 7. **Write it in one batch.** Use a single ArtifactData `batch`, pinning every existing document with `if_version`. If a pin fails, re-read that document and redo only that write.
 8. **Report back** in 3–5 lines: what changed, and anything that looked uncertain.
 
+## Excluded accounts
+
+- **Praxis Medicines** removed SuperAgents from its portfolio on Oct 1, 2026, and was taken out of the report. Don't re-add it.
+
 ## Guardrails
 
 - Only write facts found in sources. Mark anything uncertain with "unconfirmed" in the text.
