@@ -6,7 +6,7 @@ This is a self-updating version of the weekly *SuperAgent Implementation Status 
 
 - **Live page:** https://claude.ai/artifact/Er6twyU8BNyrVDXjq711AZ
 - **`index.html`:** the page source. It reads everything from the artifact's shared database.
-- **`UPDATE_PLAYBOOK.md`:** how the database is refreshed. A scheduled routine runs it Mon/Wed/Fri at 7:48 AM ET using Gmail, Calendar and Drive.
+- **`UPDATE_PLAYBOOK.md`:** how the database is refreshed. A scheduled routine runs it every day at 5:00 PM ET using Gmail, Calendar, Drive and Zoom.
 - **`seed/`:** `build_seed.py` builds the initial documents: the week of Sep 28, 2026, plus archives of the Sep 7, 14 and 21 reports.
 
 ### What the page does on its own

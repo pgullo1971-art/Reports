@@ -2,7 +2,7 @@
 
 The live report is https://claude.ai/artifact/Er6twyU8BNyrVDXjq711AZ. The page stores no data in its HTML.
 Everything it shows comes from its artifact database. A scheduled routine refreshes that database
-on Mon, Wed and Fri at 7:48 AM ET, following the steps below. Anyone can run the same steps by hand.
+every day at 5:00 PM ET, following the steps below. Anyone can run the same steps by hand.
 
 ## Data model
 
