@@ -328,7 +328,7 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
   function signals(a, v){
     var out=[], g=parse(a.goLive), ref=v.ref, p=prevAcct(v.prev,a.id);
     var dl = g ? daysBetween(ref,g) : null;
-    if(a.status==="at-risk") out.push({sev:"risk",tag:"At risk",text:a.watch||"Marked at risk this week."});
+    if(a.status==="at-risk") out.push({sev:"risk",tag:"At risk",text:"Marked at risk this week."});
     if(g && a.status!=="live" && dl<0) out.push({sev:"risk",tag:"Date passed",text:"Go-live date "+fmt(g)+" has passed without the account being marked live. Confirm launch or reset the date."});
     if(p && p.goLive && a.goLive && p.goLive!==a.goLive){
       var pd=parse(p.goLive), shift=daysBetween(pd,g);
@@ -339,7 +339,7 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
     if(hist.length>=3 && a.status!=="live" && a.goLiveConfirmed!==true) out.push({sev:"watch",tag:(hist.length-1)+" date changes",text:"Go-live has moved "+(hist.length-1)+" times on record ("+hist.map(function(x){return fmt(parse(x))}).join(" → ")+")."});
     if(g && a.status!=="live" && dl>=0 && dl<=7) out.push({sev:"info",tag:dl===0?"Launches today":"Launch in "+dl+"d",text:"Go-live "+fmt(g,true)+". Confirm comms, training and support coverage."});
     if(g && a.status!=="live" && a.goLiveConfirmed===false && dl!=null && dl<=21 && dl>=0) out.push({sev:"watch",tag:"Date unconfirmed",text:"Target "+(a.goLiveLabel||fmt(g))+" is "+dl+" days out and not yet confirmed by the client."});
-    if(a.status==="watch" && a.watch) out.push({sev:"watch",tag:"Watch",text:a.watch});
+    if(a.status==="watch") out.push({sev:"watch",tag:"Watch",text:"Marked watch this week."});
     if(p && p.status && p.status!==a.status && (a.status==="watch"||a.status==="at-risk")) out.push({sev:"watch",tag:"Status down",text:"Moved from "+(STATUS[p.status]||{}).label+" to "+(STATUS[a.status]||{}).label+"."});
     if(selWeek==="current" && a.updatedAt){ var age=daysBetween(new Date(a.updatedAt),new Date()); if(age>=9) out.push({sev:"watch",tag:"No update "+age+"d",text:"Nothing new found in "+age+" days. Check in with the account team."}); }
     return out;
@@ -467,7 +467,6 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
     if(arr(a.metrics).length) h+='<div class="stats">'+arr(a.metrics).map(function(m){return '<div class="stat"><b>'+esc(m.value)+'</b><span>'+esc(m.label)+'</span></div>'}).join("")+'</div>';
     if(arr(a.updates).length) h+='<div><div class="k">This week</div><ul>'+arr(a.updates).map(function(u){ if(typeof u==="string") return "<li>"+esc(u)+"</li>"; var d=parse(u.date); return '<li>'+(d?'<span class="dt">'+esc(fmt(d))+'</span>':'')+esc(u.text)+'</li>'}).join("")+'</ul></div>';
     if(arr(a.nextSteps).length) h+='<div><div class="k">Next steps</div><ul>'+arr(a.nextSteps).map(function(s){return "<li>"+esc(s)+"</li>"}).join("")+'</ul></div>';
-    if(a.watch && a.status!=="watch" && a.status!=="at-risk") h+='<div class="watchbox"><div class="k">Watch item</div>'+esc(a.watch)+'</div>';
     h+='</div><div class="foot">';
     if(a.owner) h+='<span class="tag">Lead: '+esc(a.owner)+'</span>';
     if(arr(a.sources).length) h+='<span class="src">Sources: '+esc(arr(a.sources).slice(0,3).join(" · "))+'</span>';
@@ -559,7 +558,7 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
   function context(){
     var v=view();
     var data={week:v.weekOf, today:v.ref.toISOString().slice(0,10), headline:(v.report||{}).headline, accounts:sorted(v.accounts).map(function(a){
-      return {name:a.name,persona:a.persona,agent:a.agent,status:a.status,phase:a.phase,goLive:a.goLive,goLiveLabel:a.goLiveLabel,goLiveConfirmed:a.goLiveConfirmed,pilot:a.pilotStart?[a.pilotStart,a.pilotEnd]:undefined,summary:a.summary,updates:arr(a.updates).map(function(u){return typeof u==="string"?u:(u.date?u.date+": ":"")+u.text}),nextSteps:a.nextSteps,watch:a.watch,metrics:arr(a.metrics).map(function(m){return m.label+": "+m.value}),flags:signals(a,v).map(function(s){return s.tag+" — "+s.text})};
+      return {name:a.name,persona:a.persona,agent:a.agent,status:a.status,phase:a.phase,goLive:a.goLive,goLiveLabel:a.goLiveLabel,goLiveConfirmed:a.goLiveConfirmed,pilot:a.pilotStart?[a.pilotStart,a.pilotEnd]:undefined,summary:a.summary,updates:arr(a.updates).map(function(u){return typeof u==="string"?u:(u.date?u.date+": ":"")+u.text}),nextSteps:a.nextSteps,metrics:arr(a.metrics).map(function(m){return m.label+": "+m.value}),flags:signals(a,v).map(function(s){return s.tag+" — "+s.text})};
     }), changesSinceLastWeek:(changes(v)||[]).map(function(x){return x.t.replace(/<[^>]+>/g,"")})};
     return JSON.stringify(data).slice(0,40000);
   }

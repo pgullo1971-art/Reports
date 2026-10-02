@@ -9,7 +9,7 @@ every day at 5:00 PM ET, following the steps below. Anyone can run the same step
 | Doc | What it holds |
 | --- | --- |
 | `report/current` | `weekOf` (the Monday, `YYYY-MM-DD`), `lastSync` (ISO), `nextSync` (display text), `headline` (3–4 sentences), `highlights` (3–6 short strings), `sources` |
-| `accounts/<slug>` | One per account: `name, agent, persona, status, phase, goLive, goLiveLabel, goLiveConfirmed, pilotStart, pilotEnd, summary, updates[{date,text}], nextSteps[], watch, metrics[{label,value}], owner, track, sources[], order, updatedAt` |
+| `accounts/<slug>` | One per account: `name, agent, persona, status, phase, goLive, goLiveLabel, goLiveConfirmed, pilotStart, pilotEnd, summary, updates[{date,text}], nextSteps[], metrics[{label,value}], owner, track, sources[], order, updatedAt` |
 | `weeks/<weekOf>` | The archived week: `asOf` (that week's Friday), `headline`, `highlights`, and `accounts` (a map of slug → full account object) |
 
 - `status` is one of `live`, `on-track`, `watch`, `at-risk`, `pre`.
@@ -47,7 +47,7 @@ So keep the data factual and current, and the analysis follows.
    - Set `report.weekOf` to the new Monday.
 4. **Update each account that has news.**
    - `updates`: this week's items only, as `{date, text}`, at most 5. Drop items older than the report week.
-   - Refresh `summary`, `nextSteps` and `watch`.
+   - Refresh `summary` and `nextSteps`. Never write watch items (leave `watch` empty).
    - Change `goLive` or `status` only on evidence. Set `goLiveConfirmed: false` when the client hasn't confirmed.
    - Add 1–3 `sources` (email subject + date, or file title).
    - Set `updatedAt` to now.
