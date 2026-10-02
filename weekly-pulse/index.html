@@ -685,7 +685,6 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
     if(u.gapNote) h+='<p class="ucap">'+esc(u.gapNote)+'</p>';
     if(arr(u.bySkill).length) h+='<div class="ucmp" style="margin-top:12px"><table class="utab"><thead><tr><th>Skill</th><th class="num">Questions</th><th class="num">Answer rate</th><th class="num">Gaps</th></tr></thead><tbody>'+u.bySkill.map(function(r){return '<tr><td>'+esc(r[0])+'</td><td class="num">'+r[1]+'</td><td class="num" style="'+(r[2]<70?'color:var(--risk);font-weight:700':'')+'">'+r[2]+'%</td><td class="num">'+r[3]+'</td></tr>'}).join("")+'</tbody></table></div>';
     if(arr(u.actions).length) h+='<div class="uacts">'+u.actions.map(function(a){return '<div class="uact"><h5><span>'+esc(a.title)+'</span><span class="who">'+esc(a.owner)+'</span></h5><p>'+esc(a.text)+'</p></div>'}).join("")+'</div>';
-    h+='<p class="ucap">Source: '+esc(u.source||"usage report")+', exported by ACTO Agentic Experience Engineering. Figures exclude internal ACTO accounts, test and demo sessions.</p>';
     $("usage-body").innerHTML=h;
   }
   $("usage-tabs").addEventListener("click",function(ev){ var b=ev.target.closest("[data-u]"); if(!b) return; selUsage=b.getAttribute("data-u"); renderUsage(); });
