@@ -670,12 +670,7 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
       h+='</div>';
     }
     if(u.returningNote) h+='<p class="ucap">'+esc(u.returningNote)+'</p>';
-    var hist=arr(u.history);
     h+='<div class="uchart-grid">';
-    if(hist.length>=2){
-      h+=cardChart("Answer rate, report by report","each point is one weekly report",hist.map(function(x){return {label:fmt(parse(x.asOf)),v:x.answerRate,tip:fmt(parse(x.asOf))+" ("+x.periodLabel+"): "+x.answerRate+"%"}}),{type:"line",max:100,fmt:function(x){return Math.round(x*10)/10+"%"},label:"Answer rate by report"});
-      h+=cardChart("Active users, report by report","of "+hist[hist.length-1].withAccess+" with access",hist.map(function(x){return {label:fmt(parse(x.asOf)),v:x.activeUsers,tip:fmt(parse(x.asOf))+": "+x.activeUsers+" of "+x.withAccess+" active"}}),{type:"line",label:"Active users by report"});
-    } else h+='<div class="uchart"><h5>Report-by-report trend</h5><p class="none">The trend appears once a second weekly report is on record. The first report is dated '+esc(fmt(parse(hist[0]&&hist[0].asOf)||parse(u.preparedOn)))+'.</p></div>';
     var nr=u.negReasons;
     if(nr&&arr(nr.items).length){ var top=nr.items[0][1];
       h+='<div class="uchart"><h5>Why answers were rated negative</h5><div class="note">'+esc(nr.scope)+' · '+nr.total+' negative ratings</div>'+nr.items.map(function(r){return '<div class="hb"><span>'+esc(r[0])+'</span><span class="t"><i style="width:'+(r[1]/top*100)+'%"></i></span><b>'+r[1]+' of '+nr.total+'</b></div>'}).join("")+'</div>'; }
