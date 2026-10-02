@@ -1,3 +1,4 @@
+
 <title>SuperAgent Weekly Pulse</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -115,6 +116,61 @@ h3.sec small{font-weight:600;text-transform:none;letter-spacing:0;font-size:11px
 .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--muted);margin-top:10px}
 .legend span{display:inline-flex;align-items:center;gap:5px}
 .legend i{width:10px;height:10px;border-radius:50%;background:var(--c)}
+
+/* usage dashboard */
+.ut-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.ut{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;min-width:0}
+.ut .l{display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.ut .n{display:block;margin-top:4px;font-size:26px;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;color:var(--text)}
+.ut .n small{font-size:13px;font-weight:600;color:var(--muted);margin-left:4px}
+.ut .s{display:block;margin-top:2px;font-size:11.5px;color:var(--sub)}
+.ut .dl{display:block;margin-top:6px;font-size:11px;font-weight:600;color:var(--muted)}
+.ut .dl.good{color:var(--teal)}.ut .dl.bad{color:var(--risk)}
+.ucmp{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow-x:auto;margin-bottom:14px}
+.ucmp table,.utab{width:100%;border-collapse:collapse;font-size:12px}
+.ucmp th,.utab th{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.ucmp td,.utab td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--sub);vertical-align:top}
+.ucmp tr:last-child td,.utab tr:last-child td{border-bottom:none}
+.ucmp td:first-child{color:var(--text);font-weight:700}
+.ucmp .num,.utab .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.ucmp th.num,.utab th.num{text-align:right}
+.ucap{font-size:11px;color:var(--muted);margin:8px 2px 0}
+.uhead{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin:14px 0 10px;font-size:12px;color:var(--sub)}
+.uhead strong{font-size:15px;color:var(--text)}
+.uhead .mono{font-size:11px;color:var(--muted)}
+.uchart-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:12px}
+.uchart{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px 8px;min-width:0}
+.uchart h5{margin:0 0 4px;font-size:12px;font-weight:700}
+.uchart svg{display:block;width:100%;height:auto}
+.uchart .ax{fill:var(--muted);font-size:9px;font-family:var(--f-data)}
+.uchart .gl{stroke:var(--line);stroke-width:1}
+.uchart .val{fill:var(--text);font-size:10px;font-weight:700;font-family:var(--f-data)}
+.uchart .mk{fill:var(--teal)}
+.uchart .mk.part{fill:var(--teal);opacity:.5}
+.uchart .ln{fill:none;stroke:var(--teal);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.uchart .dot{fill:var(--teal);stroke:var(--card);stroke-width:2}
+.uchart .hit{fill:transparent}
+.uchart .hit:hover{fill:var(--teal-soft);opacity:.5}
+.uchart .note{font-size:10.5px;color:var(--muted);margin:2px 0 4px}
+.stack{display:flex;gap:2px;height:14px;margin:8px 0 6px}
+.stack i{display:block;min-width:2px;border-radius:3px}
+.stack i.a{background:var(--teal)}.stack i.b{background:var(--watch)}.stack i.c{background:var(--pre)}
+.slegend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11px;color:var(--sub)}
+.slegend span{display:inline-flex;align-items:center;gap:5px}
+.slegend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.hb{display:grid;grid-template-columns:minmax(90px,1.1fr) minmax(0,2fr) auto;gap:8px;align-items:center;font-size:11.5px;color:var(--sub);margin:5px 0}
+.hb .t{height:8px;background:var(--wash);border-radius:4px;overflow:hidden}
+.hb .t i{display:block;height:100%;background:var(--risk);border-radius:4px}
+.hb .t i.ok{background:var(--teal)}
+.hb b{font-family:var(--f-data);font-weight:500;font-size:11px;color:var(--text);white-space:nowrap}
+.uacts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-top:12px}
+.uact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;min-width:0}
+.uact h5{margin:0 0 3px;font-size:12.5px;font-weight:700;display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
+.uact p{margin:0;font-size:12px;color:var(--sub)}
+.who{flex-shrink:0;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border:1px solid var(--line);color:var(--sub);border-radius:999px;padding:2px 8px}
+.utip{position:fixed;z-index:50;pointer-events:none;background:var(--tile);color:#fff;font-size:11px;line-height:1.4;padding:6px 9px;border-radius:6px;max-width:220px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+@media (max-width:760px){.ut-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:420px){.ut-grid{grid-template-columns:minmax(0,1fr)}.hb{grid-template-columns:minmax(0,1fr) auto}.hb .t{grid-column:1/-1;order:3}}
 
 /* accounts */
 .bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
@@ -239,6 +295,13 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
     </div>
   </div>
 
+  <div id="usage" hidden>
+    <h3 class="sec">Usage and answer quality <small id="usage-note"></small></h3>
+    <div class="ucmp"><table id="ucmp"></table></div>
+    <div class="bar" id="usage-tabs" role="group" aria-label="Choose an account"></div>
+    <div id="usage-body"></div>
+  </div>
+
   <h3 class="sec">Account detail</h3>
   <div class="bar" id="filters" role="group" aria-label="Filter accounts">
     <button class="chip" data-f="all" aria-pressed="true">All</button>
@@ -249,6 +312,7 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
   </div>
   <div id="list"></div>
   <div id="empty" class="empty" hidden></div>
+  <div class="utip" id="utip" hidden></div>
 
   <h3 class="sec">Next week priorities</h3>
   <div class="nwp" id="nwp"></div>
@@ -505,7 +569,7 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
 
   function render(){
     var v=view();
-    renderLede(v); renderKpis(v); renderFlags(v); renderChanges(v); renderRunway(v); renderAccounts(v); renderNwp(v);
+    renderLede(v); renderKpis(v); renderFlags(v); renderChanges(v); renderRunway(v); renderAccounts(v); renderNwp(v); renderUsage();
   }
 
   // ---- interactions ----
@@ -547,6 +611,88 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
   }
   $("copysum").addEventListener("click",function(){ copyText(plainSummary(),$("copymsg"),"Summary copied. Paste it into the weekly email."); });
 
+  // ---- usage dashboard ----
+  var usage=[], selUsage=null;
+  function nice(m){ if(!(m>0)) return 1; var p=Math.pow(10,Math.floor(Math.log(m)/Math.LN10)), n=m/p; return (n<=1?1:n<=2?2:n<=5?5:10)*p; }
+  function chart(pts,o){
+    var W=320,H=150,L=32,R=10,T=16,B=22,iw=W-L-R,ih=H-T-B;
+    var vals=pts.map(function(p){return p.v}).filter(function(x){return x!=null});
+    if(!vals.length) return '<p class="none">No data yet.</p>';
+    var max=o.max||nice(Math.max.apply(null,vals)), n=pts.length, step=iw/n, h='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="'+esc(o.label)+'">';
+    [0,.5,1].forEach(function(f){ var y=T+ih-ih*f; h+='<line class="gl" x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'"/><text class="ax" x="'+(L-4)+'" y="'+(y+3)+'" text-anchor="end">'+esc(o.fmt?o.fmt(max*f):Math.round(max*f))+'</text>'; });
+    var maxI=vals.indexOf(Math.max.apply(null,vals)), line=[], tags='';
+    pts.forEach(function(p,i){
+      var cx=L+step*i+step/2, y=p.v==null?null:T+ih-ih*Math.min(1,p.v/max);
+      if(o.type==="bar"){ var bw=Math.min(20,step*.62); if(p.v!=null) h+='<rect class="mk'+(p.partial?' part':'')+'" x="'+(cx-bw/2)+'" y="'+y+'" width="'+bw+'" height="'+Math.max(1,T+ih-y)+'" rx="3"/>'; }
+      else if(y!=null) line.push([cx,y]);
+      if(n<=8||i%2===0||i===n-1) h+='<text class="ax" x="'+cx+'" y="'+(H-7)+'" text-anchor="middle">'+esc(p.label)+'</text>';
+    });
+    if(o.type!=="bar" && line.length){ h+='<polyline class="ln" points="'+line.map(function(q){return q[0]+','+q[1]}).join(' ')+'"/>'; line.forEach(function(q){h+='<circle class="dot" cx="'+q[0]+'" cy="'+q[1]+'" r="3.5"/>';}); }
+    // endpoint and peak labels only
+    var lastI=pts.length-1; while(lastI>0&&pts[lastI].v==null) lastI--;
+    [lastI].concat(maxI!==lastI&&n>2?[pts.map(function(p){return p.v}).indexOf(Math.max.apply(null,vals))]:[]).forEach(function(i){
+      var p=pts[i]; if(!p||p.v==null) return; var cx=L+step*i+step/2, y=T+ih-ih*Math.min(1,p.v/max);
+      h+='<text class="val" x="'+cx+'" y="'+Math.max(10,y-(o.type==="bar"?4:8))+'" text-anchor="middle">'+esc(o.fmt?o.fmt(p.v):p.v)+'</text>';
+    });
+    pts.forEach(function(p,i){ h+='<rect class="hit" data-tip="'+esc(p.tip||(p.label+": "+(o.fmt?o.fmt(p.v):p.v)))+'" x="'+(L+step*i)+'" y="'+T+'" width="'+step+'" height="'+(ih+B)+'"/>'; });
+    return h+'</svg>';
+  }
+  function cardChart(title,note,pts,o){ return '<div class="uchart"><h5>'+esc(title)+'</h5>'+(note?'<div class="note">'+esc(note)+'</div>':'')+chart(pts,o)+'</div>'; }
+  function sec(n){ return n==null?"—":(n+" s"); }
+  function tile(t){ return '<div class="ut"><span class="l">'+esc(t.label)+'</span><span class="n">'+esc(t.value)+(t.of?'<small>'+esc(t.of)+'</small>':'')+'</span><span class="s">'+esc(t.sub||"")+'</span>'+(t.delta?'<span class="dl '+esc(t.tone||"")+'">'+esc(t.delta)+'</span>':'')+'</div>'; }
+  function tileVal(u,label){ var t=arr(u.tiles).filter(function(x){return x.label===label})[0]; return t?(t.value+(t.of?" "+t.of:"")):"—"; }
+  function renderUsage(){
+    var list=usage.slice().sort(function(a,b){return (a.order||99)-(b.order||99)});
+    $("usage").hidden=!list.length; if(!list.length) return;
+    if(!selUsage||!list.some(function(u){return u.id===selUsage})) selUsage=list[0].id;
+    $("usage-note").textContent="latest report per account · windows differ, so compare with care";
+    var c='<thead><tr><th>Account</th><th>Reporting period</th><th class="num">Active users</th><th class="num">Questions</th><th class="num">Answer rate</th><th class="num">Median response</th><th class="num">Positive ratings</th></tr></thead><tbody>';
+    list.forEach(function(u){ c+='<tr><td>'+esc(u.name)+'</td><td>'+esc(u.periodLabel)+'<br><span class="mono" style="font-size:10.5px;color:var(--muted)">'+esc(u.windowType||"")+'</span></td><td class="num">'+esc(tileVal(u,"Active users"))+'</td><td class="num">'+esc(tileVal(u,"Questions asked"))+'</td><td class="num">'+esc(tileVal(u,"Answer rate"))+'</td><td class="num">'+esc(tileVal(u,"Median response"))+'</td><td class="num">'+esc(tileVal(u,"Positive ratings"))+'</td></tr>'; });
+    $("ucmp").innerHTML=c+'</tbody>';
+    $("usage-tabs").innerHTML=list.map(function(u){return '<button class="chip" data-u="'+esc(u.id)+'" aria-pressed="'+(u.id===selUsage)+'">'+esc(u.name)+'</button>'}).join("");
+    var u=list.filter(function(x){return x.id===selUsage})[0], h="";
+    h+='<div class="uhead"><strong>'+esc(u.name)+'</strong><span>'+esc(u.agent||"")+'</span><span class="mono">'+esc(u.periodLabel)+' · report dated '+esc(fmt(parse(u.preparedOn)))+'</span></div>';
+    h+='<div class="ut-grid">'+arr(u.tiles).map(tile).join("")+'</div>';
+    var ad=u.adoption;
+    if(ad){ var tot=ad.total||(ad.active+ad.lapsed+ad.never);
+      h+='<div class="uchart" style="margin-top:12px"><h5>Adoption: who with access is using it</h5><div class="stack" role="img" aria-label="Active '+ad.active+', lapsed '+ad.lapsed+', never used '+ad.never+'">'+
+      [["a",ad.active,"Using it this period"],["b",ad.lapsed,"Used before, not this period"],["c",ad.never,"Never used"]].filter(function(x){return x[1]>0}).map(function(x){return '<i class="'+x[0]+'" style="width:'+(x[1]/tot*100)+'%" data-tip="'+esc(x[2]+": "+x[1]+" of "+tot)+'"></i>'}).join("")+'</div>'+
+      '<div class="slegend"><span><i style="background:var(--teal)"></i>Using it this period '+ad.active+'</span><span><i style="background:var(--watch)"></i>Lapsed '+ad.lapsed+'</span><span><i style="background:var(--pre)"></i>Never used '+ad.never+'</span><span>of '+tot+' with access</span></div></div>'; }
+    var mo=arr(u.monthly), part=mo.some(function(m){return m.partial});
+    if(mo.length){
+      var pn=part?"* partial month":"";
+      h+='<div class="uchart-grid">';
+      h+=cardChart("Questions asked per month",pn,mo.map(function(m){return {label:m.label,v:m.questions,partial:m.partial,tip:m.label+": "+m.questions+" questions from "+m.people+" people, "+m.sessions+" sessions"}}),{type:"bar",label:"Questions asked per month"});
+      h+=cardChart("Answer rate by month",pn||"share of scored questions answered from the knowledge base",mo.map(function(m){return {label:m.label,v:m.answerRate,tip:m.label+": "+m.answerRate+"% answered"}}),{type:"line",max:100,fmt:function(x){return Math.round(x*10)/10+"%"},label:"Answer rate by month"});
+      h+=cardChart("Median response time",pn||"seconds, question to complete answer",mo.map(function(m){return {label:m.label,v:m.medianSec,tip:m.label+": "+m.medianSec+" s median"}}),{type:"line",fmt:function(x){return Math.round(x)+" s"},label:"Median response time by month"});
+      h+=cardChart("People asking per month",pn,mo.map(function(m){return {label:m.label,v:m.people,partial:m.partial,tip:m.label+": "+m.people+" people"}}),{type:"bar",label:"People asking per month"});
+      if(arr(u.returning).length>=4) h+=cardChart("Returning users","share of a month's users who asked again the next month",u.returning.map(function(r){return {label:r.label,v:r.pct,partial:r.partial,tip:r.label+": "+r.pct+"% returned"}}),{type:"bar",max:100,fmt:function(x){return Math.round(x)+"%"},label:"Returning users by month"});
+      h+='</div>';
+    }
+    if(u.returningNote) h+='<p class="ucap">'+esc(u.returningNote)+'</p>';
+    var hist=arr(u.history);
+    h+='<div class="uchart-grid">';
+    if(hist.length>=2){
+      h+=cardChart("Answer rate, report by report","each point is one weekly report",hist.map(function(x){return {label:fmt(parse(x.asOf)),v:x.answerRate,tip:fmt(parse(x.asOf))+" ("+x.periodLabel+"): "+x.answerRate+"%"}}),{type:"line",max:100,fmt:function(x){return Math.round(x*10)/10+"%"},label:"Answer rate by report"});
+      h+=cardChart("Active users, report by report","of "+hist[hist.length-1].withAccess+" with access",hist.map(function(x){return {label:fmt(parse(x.asOf)),v:x.activeUsers,tip:fmt(parse(x.asOf))+": "+x.activeUsers+" of "+x.withAccess+" active"}}),{type:"line",label:"Active users by report"});
+    } else h+='<div class="uchart"><h5>Report-by-report trend</h5><p class="none">The trend appears once a second weekly report is on record. The first report is dated '+esc(fmt(parse(hist[0]&&hist[0].asOf)||parse(u.preparedOn)))+'.</p></div>';
+    var nr=u.negReasons;
+    if(nr&&arr(nr.items).length){ var top=nr.items[0][1];
+      h+='<div class="uchart"><h5>Why answers were rated negative</h5><div class="note">'+esc(nr.scope)+' · '+nr.total+' negative ratings</div>'+nr.items.map(function(r){return '<div class="hb"><span>'+esc(r[0])+'</span><span class="t"><i style="width:'+(r[1]/top*100)+'%"></i></span><b>'+r[1]+' of '+nr.total+'</b></div>'}).join("")+'</div>'; }
+    var kb=u.kb;
+    if(kb) h+='<div class="uchart"><h5>Knowledge base</h5><div class="hb"><span>Live documents</span><span class="t"><i class="ok" style="width:100%"></i></span><b>'+kb.live+'</b></div><div class="hb"><span>Cited this period</span><span class="t"><i class="ok" style="width:'+(kb.cited/kb.live*100)+'%"></i></span><b>'+kb.cited+' · '+Math.round(kb.cited/kb.live*100)+'%</b></div><div class="hb"><span>Never cited</span><span class="t"><i style="width:'+(kb.neverCited/kb.live*100)+'%"></i></span><b>'+kb.neverCited+'</b></div></div>';
+    h+='</div>';
+    if(u.gapNote) h+='<p class="ucap">'+esc(u.gapNote)+'</p>';
+    if(arr(u.bySkill).length) h+='<div class="ucmp" style="margin-top:12px"><table class="utab"><thead><tr><th>Skill</th><th class="num">Questions</th><th class="num">Answer rate</th><th class="num">Gaps</th></tr></thead><tbody>'+u.bySkill.map(function(r){return '<tr><td>'+esc(r[0])+'</td><td class="num">'+r[1]+'</td><td class="num" style="'+(r[2]<70?'color:var(--risk);font-weight:700':'')+'">'+r[2]+'%</td><td class="num">'+r[3]+'</td></tr>'}).join("")+'</tbody></table></div>';
+    if(arr(u.actions).length) h+='<div class="uacts">'+u.actions.map(function(a){return '<div class="uact"><h5><span>'+esc(a.title)+'</span><span class="who">'+esc(a.owner)+'</span></h5><p>'+esc(a.text)+'</p></div>'}).join("")+'</div>';
+    h+='<p class="ucap">Source: '+esc(u.source||"usage report")+', exported by ACTO Agentic Experience Engineering. Figures exclude internal ACTO accounts, test and demo sessions.</p>';
+    $("usage-body").innerHTML=h;
+  }
+  $("usage-tabs").addEventListener("click",function(ev){ var b=ev.target.closest("[data-u]"); if(!b) return; selUsage=b.getAttribute("data-u"); renderUsage(); });
+  (function(){ var tip=$("utip");
+    function show(ev){ var t=ev.target.closest&&ev.target.closest("[data-tip]"); if(!t){tip.hidden=true;return;} tip.textContent=t.getAttribute("data-tip"); tip.hidden=false; var x=Math.min(ev.clientX+12,window.innerWidth-tip.offsetWidth-8), y=ev.clientY+14; if(y+tip.offsetHeight>window.innerHeight-8) y=ev.clientY-tip.offsetHeight-10; tip.style.left=Math.max(8,x)+"px"; tip.style.top=Math.max(8,y)+"px"; }
+    document.addEventListener("mousemove",show); document.addEventListener("click",show); document.addEventListener("scroll",function(){tip.hidden=true},true); })();
+
   // ---- ask Claude ----
   var sample=null, ctl=null;
   var PRESETS={
@@ -559,7 +705,7 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
     var v=view();
     var data={week:v.weekOf, today:v.ref.toISOString().slice(0,10), headline:(v.report||{}).headline, accounts:sorted(v.accounts).map(function(a){
       return {name:a.name,persona:a.persona,agent:a.agent,status:a.status,phase:a.phase,goLive:a.goLive,goLiveLabel:a.goLiveLabel,goLiveConfirmed:a.goLiveConfirmed,pilot:a.pilotStart?[a.pilotStart,a.pilotEnd]:undefined,summary:a.summary,updates:arr(a.updates).map(function(u){return typeof u==="string"?u:(u.date?u.date+": ":"")+u.text}),nextSteps:a.nextSteps,metrics:arr(a.metrics).map(function(m){return m.label+": "+m.value}),flags:signals(a,v).map(function(s){return s.tag+" — "+s.text})};
-    }), changesSinceLastWeek:(changes(v)||[]).map(function(x){return x.t.replace(/<[^>]+>/g,"")})};
+    }), usage:usage.map(function(u){return {name:u.name,period:u.periodLabel,window:u.windowType,tiles:arr(u.tiles).map(function(t){return t.label+": "+t.value+(t.of?" "+t.of:"")+" ("+(t.sub||"")+(t.delta?"; "+t.delta:"")+")"}),gaps:u.gapNote,actions:arr(u.actions).map(function(a){return a.owner+": "+a.title})}}),changesSinceLastWeek:(changes(v)||[]).map(function(x){return x.t.replace(/<[^>]+>/g,"")})};
     return JSON.stringify(data).slice(0,40000);
   }
   function errCopy(code){
@@ -609,7 +755,7 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
       '<div class="snapnote"><b>'+esc(wk)+'</b><br>Snapshot exported '+esc(stampTxt)+'</div></div></header>'+
       '<div class="wrap">'+grab(".lede").replace(/<div id="histnote"[^>]*>[\s\S]*?<\/div>/,"")+grab(".kpis")+grab(".duo")+
       '<h3 class="sec">Go-live runway'+(note?' <small>'+esc(note)+'</small>':'')+'</h3>'+runway+
-      sec("Account detail")+grab("#list")+sec("Next week priorities")+grab("#nwp")+
+      sec("Usage and answer quality")+grab(".ucmp")+grab("#usage-body")+sec("Account detail")+grab("#list")+sec("Next week priorities")+grab("#nwp")+
       '<footer>SuperAgent Implementation Weekly Status · '+esc(wk)+' · Snapshot of the live SuperAgent Weekly Pulse, exported '+esc(stampTxt)+'<br>Flags and countdowns reflect the data as of export · ACTO Confidential</footer></div>';
     filter=savedFilter; render();
     return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'+
@@ -651,6 +797,7 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
     if(!db){ stamp(); renderWeeks(); render(); return; }
     db.doc("report/current").onSnapshot(function(s){ report=s.exists?s.data():null; stamp(); renderWeeks(); render(); },function(){ $("sync").textContent="Connection lost. Reload to reconnect."; });
     db.collection("accounts").onSnapshot(function(snap){ accountsLive=snap.docs.map(function(d){var o=Object.assign({},d.data());o.id=d.id;return o;}); $("export").disabled=!accountsLive.length; render(); },function(){ $("sync").textContent="Connection lost. Reload to reconnect."; });
+    db.collection("usage").onSnapshot(function(snap){ usage=snap.docs.map(function(d){var o=Object.assign({},d.data());o.id=d.id;return o;}); renderUsage(); });
     db.collection("weeks").onSnapshot(function(snap){ weeks=snap.docs.map(function(d){var o=Object.assign({},d.data());o.id=d.id;return o;}); renderWeeks(); render(); });
   }
   renderWeeks(); render(); start();
