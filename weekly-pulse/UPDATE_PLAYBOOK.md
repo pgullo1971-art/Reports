@@ -61,6 +61,7 @@ So keep the data factual and current, and the analysis follows.
 ## Excluded accounts
 
 - **Praxis Medicines** removed SuperAgents from its portfolio on Oct 1, 2026, and was taken out of the report. Don't re-add it.
+- **Azurity / Currax** was removed from the report at Paul's request (Oct 3, 2026). Don't re-add it or mention it.
 
 ## Guardrails
 
