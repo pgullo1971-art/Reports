@@ -238,6 +238,42 @@ h3.sec small{font-weight:600;text-transform:none;letter-spacing:0;font-size:11px
 .copyrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px;font-size:11px;color:var(--muted)}
 
 .empty{background:var(--card);border:1px dashed var(--line);border-radius:10px;padding:28px;text-align:center;color:var(--muted)}
+/* data sources (editors only) */
+.srcs{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:12px}
+.srcs-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.srcs-top p{margin:0;flex:1;min-width:220px;font-size:12px;color:var(--sub)}
+.src-list{display:flex;flex-direction:column;gap:8px}
+.src-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px 12px;align-items:start;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--bg)}
+.src-row.off{opacity:.55}
+.src-type{font-size:9.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;border-radius:999px;padding:3px 9px;background:var(--teal-soft);color:var(--teal);white-space:nowrap;margin-top:2px}
+.src-main{min-width:0;display:flex;flex-direction:column;gap:3px}
+.src-main .acc{font-size:11px;font-weight:700;color:var(--text)}
+.src-main .tgt{font-family:var(--f-data);font-size:11.5px;color:var(--text);overflow-wrap:anywhere}
+.src-main .tgt a{color:var(--teal)}
+.src-main .nt{font-size:12px;color:var(--sub)}
+.src-main .lu{font-size:10.5px;color:var(--muted)}
+.src-acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.src-acts button{font-size:11px;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--sub);border-radius:6px;padding:4px 9px}
+.src-acts button:hover{border-color:var(--teal);color:var(--teal)}
+.src-acts button.danger{color:var(--risk)}
+.src-acts button.danger:hover{border-color:var(--risk)}
+.sw{position:relative;display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--sub);cursor:pointer}
+.sw input{appearance:none;width:30px;height:17px;border-radius:999px;background:var(--line);position:relative;cursor:pointer;margin:0;transition:background .15s}
+.sw input::after{content:"";position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:var(--card);transition:left .15s}
+.sw input:checked{background:var(--teal)}
+.sw input:checked::after{left:15px}
+form.src-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;border:1px dashed var(--teal);border-radius:8px;padding:12px;background:var(--wash)}
+form.src-form label{display:flex;flex-direction:column;gap:4px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted);min-width:0}
+form.src-form .full{grid-column:1/-1}
+form.src-form label[hidden]{display:none}
+form.src-form input[type=text],form.src-form select,form.src-form textarea{font:inherit;font-size:12.5px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:7px 9px;width:100%}
+form.src-form textarea{min-height:52px;resize:vertical}
+form.src-form input[type=file]{font-size:12px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--sub)}
+form.src-form .hint{font-size:11px;font-weight:500;text-transform:none;letter-spacing:0;color:var(--muted)}
+form.src-form .acts{grid-column:1/-1;display:flex;gap:8px;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+form.src-form .msg{flex:1;min-width:160px;font-size:11.5px;color:var(--risk);font-weight:500}
+@media (max-width:560px){form.src-form{grid-template-columns:1fr}.src-row{grid-template-columns:minmax(0,1fr)}.src-acts{justify-content:flex-start}}
+
 footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;line-height:1.6}
 
 @media (max-width:760px){.grid,.duo{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.sync{text-align:left}}
@@ -316,6 +352,18 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
 
   <h3 class="sec">Next week priorities</h3>
   <div class="nwp" id="nwp"></div>
+
+  <div id="sources-wrap" hidden>
+    <h3 class="sec">Data sources <small>only editors see this · the daily refresh reads the active ones</small></h3>
+    <section class="srcs" aria-labelledby="sources-wrap">
+      <div class="srcs-top">
+        <p>Tell the 5 PM refresh where to look: Gmail searches, Drive folders or files, Zoom meetings, Calendar, uploaded files, or standing instructions. Switch a source off to pause it.</p>
+        <button class="btn" id="src-add" type="button">Add source</button>
+      </div>
+      <div id="src-formbox"></div>
+      <div class="src-list" id="src-list"><p class="none">Loading sources…</p></div>
+    </section>
+  </div>
 
   <h3 class="sec">Ask about this report <small>answers use only the data on this page</small></h3>
   <section class="ask" id="ask">
@@ -773,6 +821,110 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
     }finally{ btn.disabled=false; }
   });
 
+  // ---- data sources (editors only) ----
+  var SRC_TYPES={
+    gmail:{label:"Email search",ph:"from:betty@regeneron.com OR REX",hint:"A Gmail search. Searched since the last refresh."},
+    drive:{label:"Drive",ph:"Paste a Google Drive folder or file link",hint:"A folder (files changed since the last refresh) or a single file."},
+    zoom:{label:"Zoom",ph:"Meeting name, e.g. REX weekly sync",hint:"Zoom meetings whose summaries and notes to read."},
+    calendar:{label:"Calendar",ph:"e.g. This week and next",hint:"Which part of your calendar to check."},
+    file:{label:"Uploaded file",ph:"",hint:"PDF or CSV, up to 20 MB. Excel files: save as CSV first."},
+    note:{label:"Instruction",ph:"e.g. Numbers only for Philips usage",hint:"A standing rule the refresh follows."}
+  };
+  var sources=[], srcEdit=null, srcBusy=false, assets=null, canEditSrc=false;
+  function accountOptions(sel){
+    var names=["All"].concat(sorted(accountsLive).map(function(a){return a.name}));
+    if(sel&&names.indexOf(sel)<0) names.push(sel);
+    return names.map(function(n){return '<option'+(n===(sel||"All")?' selected':'')+'>'+esc(n)+'</option>'}).join("");
+  }
+  function srcForm(x){
+    x=x||{type:"gmail",account:"All",active:true};
+    var t=SRC_TYPES[x.type]||SRC_TYPES.gmail, isFile=x.type==="file";
+    return '<form class="src-form" id="src-form">'+
+      '<label for="sf-type">Type<select id="sf-type" name="type">'+Object.keys(SRC_TYPES).map(function(k){return '<option value="'+k+'"'+(k===x.type?' selected':'')+'>'+esc(SRC_TYPES[k].label)+'</option>'}).join("")+'</select></label>'+
+      '<label for="sf-account">Account<select id="sf-account" name="account">'+accountOptions(x.account)+'</select></label>'+
+      '<label class="full" for="sf-target" '+(isFile?'hidden':'')+'>What to look at<input type="text" id="sf-target" name="target" value="'+esc(x.target||"")+'" placeholder="'+esc(t.ph)+'"><span class="hint" id="sf-hint">'+esc(t.hint)+'</span></label>'+
+      '<label class="full" for="sf-file" '+(isFile?'':'hidden')+'>File<input type="file" id="sf-file" accept=".pdf,.csv,application/pdf,text/csv"><span class="hint">'+(x.fileName?'Current file: '+esc(x.fileName)+'. Choose a new one to replace it. ':'')+esc(SRC_TYPES.file.hint)+(assets?'':' Uploading needs editor access.')+'</span></label>'+
+      '<label class="full" for="sf-notes">How to use it<textarea id="sf-notes" name="notes" placeholder="e.g. Go-live dates only · Numbers only · Ignore internal threads">'+esc(x.notes||"")+'</textarea></label>'+
+      '<div class="acts"><span class="msg" id="sf-msg" aria-live="polite"></span><label class="sw"><input type="checkbox" id="sf-active"'+(x.active!==false?' checked':'')+'>Active</label>'+
+      '<button type="button" class="btn ghost" id="sf-cancel">Cancel</button><button type="submit" class="btn" id="sf-save">'+(x.id?'Save changes':'Add source')+'</button></div></form>';
+  }
+  function openSrcForm(x){ srcEdit=x?x.id:"new"; $("src-formbox").innerHTML=srcForm(x); $("src-add").hidden=true; var f=$("sf-target"); if(f&&!f.closest("label").hidden) f.focus(); }
+  function closeSrcForm(){ srcEdit=null; $("src-formbox").innerHTML=""; $("src-add").hidden=false; }
+  function fileType(f){ var n=(f.name||"").toLowerCase(); if(/\.pdf$/.test(n)) return "application/pdf"; if(/\.csv$/.test(n)) return "text/csv"; return null; }
+  function renderSources(){
+    if(!canEditSrc) return;
+    var list=sources.slice().sort(function(a,b){ if((a.active!==false)!==(b.active!==false)) return a.active!==false?-1:1; return (a.createdAt||"")<(b.createdAt||"")?-1:1; });
+    $("src-list").innerHTML = list.length ? list.map(function(x){
+      var t=SRC_TYPES[x.type]||{label:x.type}, tgt;
+      if(x.type==="file") tgt = x.assetId ? '<a href="/_blob/'+esc(x.assetId)+'" target="_blank" rel="noopener">'+esc(x.fileName||"Uploaded file")+'</a>' : esc(x.fileName||"No file yet");
+      else if(/^https?:\/\//.test(x.target||"")) tgt='<a href="'+esc(x.target)+'" target="_blank" rel="noopener">'+esc(x.target)+'</a>';
+      else tgt=esc(x.target||"—");
+      var lu = x.lastUsedAt ? "Last used "+new Date(x.lastUsedAt).toLocaleString("en-US",{month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})+(x.lastUsedNote?" · "+x.lastUsedNote:"") : "Not used yet";
+      return '<div class="src-row'+(x.active===false?' off':'')+'" data-sid="'+esc(x.id)+'"><span class="src-type">'+esc(t.label)+'</span>'+
+        '<div class="src-main"><span class="acc">'+esc(x.account||"All")+'</span><span class="tgt">'+tgt+'</span>'+(x.notes?'<span class="nt">'+esc(x.notes)+'</span>':'')+'<span class="lu">'+esc(lu)+'</span></div>'+
+        '<div class="src-acts"><label class="sw"><input type="checkbox" data-toggle="'+esc(x.id)+'"'+(x.active!==false?' checked':'')+' aria-label="Active">'+(x.active!==false?'On':'Off')+'</label>'+
+        '<button type="button" data-sedit="'+esc(x.id)+'">Edit</button>'+
+        (srcConfirm===x.id?'<button type="button" class="danger" data-sdel-yes="'+esc(x.id)+'">Confirm delete</button><button type="button" data-sdel-no>Keep</button>':'<button type="button" class="danger" data-sdel="'+esc(x.id)+'">Delete</button>')+
+        '</div></div>';
+    }).join("") : '<p class="none">No sources yet. Add the first one with "Add source".</p>';
+  }
+  var srcConfirm=null;
+  $("src-add").addEventListener("click",function(){ openSrcForm(null); });
+  $("src-formbox").addEventListener("change",function(ev){
+    if(ev.target.id!=="sf-type") return;
+    var k=ev.target.value, t=SRC_TYPES[k], isFile=k==="file";
+    $("sf-target").closest("label").hidden=isFile; $("sf-file").closest("label").hidden=!isFile;
+    $("sf-target").placeholder=t.ph; $("sf-hint").textContent=t.hint;
+  });
+  $("src-formbox").addEventListener("click",function(ev){ if(ev.target.id==="sf-cancel") closeSrcForm(); });
+  $("src-formbox").addEventListener("submit",async function(ev){
+    ev.preventDefault(); if(srcBusy) return;
+    var msg=$("sf-msg"), type=$("sf-type").value, prev=srcEdit!=="new"?sources.filter(function(x){return x.id===srcEdit})[0]:null;
+    var data={type:type,account:$("sf-account").value,target:type==="file"?"":$("sf-target").value.trim(),notes:$("sf-notes").value.trim(),active:$("sf-active").checked,updatedAt:new Date().toISOString()};
+    var file=type==="file"&&$("sf-file").files[0];
+    if(type!=="file"&&!data.target){ msg.textContent="Add what the refresh should look at."; return; }
+    if(type==="file"&&!file&&!(prev&&prev.assetId)){ msg.textContent="Choose a PDF or CSV file to upload."; return; }
+    srcBusy=true; $("sf-save").disabled=true; msg.style.color="var(--muted)";
+    try{
+      if(file){
+        if(!assets) throw {code:"not_granted"};
+        var ft=fileType(file); if(!ft) throw {code:"unsupported_type"};
+        msg.textContent="Uploading "+file.name+"…";
+        var up=await assets.upload(file,{type:ft});
+        data.assetId=up.id; data.fileName=file.name; data.contentType=up.contentType; data.sizeBytes=up.sizeBytes;
+      }
+      msg.textContent="Saving…";
+      if(prev) await db.doc("sources/"+prev.id).update(data);
+      else { data.createdAt=data.updatedAt; await db.collection("sources").add(data); }
+      if(file&&prev&&prev.assetId&&prev.assetId!==data.assetId){ try{ await assets.delete(prev.assetId); }catch(e){} }
+      closeSrcForm();
+    }catch(e){
+      msg.style.color="var(--risk)";
+      var c=e&&e.code;
+      msg.textContent = c==="unsupported_type"||c==="invalid_request" ? "Only PDF and CSV files can be uploaded. Save Excel files as CSV first." :
+        c==="too_large" ? "That file is over 20 MB." :
+        c==="quota_exceeded" ? "The report's file storage is full. Delete an old uploaded file first." :
+        c==="not_granted" ? "Only editors can upload files or change sources." :
+        "Couldn't save. Try again in a moment.";
+      $("sf-save").disabled=false;
+    }finally{ srcBusy=false; }
+  });
+  $("src-list").addEventListener("click",async function(ev){
+    var t=ev.target, id;
+    if((id=t.getAttribute("data-sedit"))){ srcConfirm=null; openSrcForm(sources.filter(function(x){return x.id===id})[0]); return; }
+    if((id=t.getAttribute("data-sdel"))){ srcConfirm=id; renderSources(); return; }
+    if(t.hasAttribute("data-sdel-no")){ srcConfirm=null; renderSources(); return; }
+    if((id=t.getAttribute("data-sdel-yes"))){
+      var x=sources.filter(function(s){return s.id===id})[0]; srcConfirm=null; t.disabled=true;
+      try{ await db.doc("sources/"+id).delete(); if(x&&x.assetId&&assets){ try{ await assets.delete(x.assetId); }catch(e){} } }catch(e){ renderSources(); }
+    }
+  });
+  $("src-list").addEventListener("change",async function(ev){
+    var id=ev.target.getAttribute("data-toggle"); if(!id) return;
+    ev.target.disabled=true;
+    try{ await db.doc("sources/"+id).update({active:ev.target.checked,updatedAt:new Date().toISOString()}); }catch(e){ ev.target.checked=!ev.target.checked; ev.target.disabled=false; }
+  });
+
   // ---- data ----
   function stamp(){
     var s=$("sync"), r=report||{};
@@ -793,6 +945,12 @@ footer{margin-top:34px;font-size:10.5px;color:var(--muted);text-align:center;lin
     db.collection("accounts").onSnapshot(function(snap){ accountsLive=snap.docs.map(function(d){var o=Object.assign({},d.data());o.id=d.id;return o;}); $("export").disabled=!accountsLive.length; render(); },function(){ $("sync").textContent="Connection lost. Reload to reconnect."; });
     db.collection("usage").onSnapshot(function(snap){ usage=snap.docs.map(function(d){var o=Object.assign({},d.data());o.id=d.id;return o;}); renderUsage(); });
     db.collection("weeks").onSnapshot(function(snap){ weeks=snap.docs.map(function(d){var o=Object.assign({},d.data());o.id=d.id;return o;}); renderWeeks(); render(); });
+    try{ var who=window.claude && await window.claude.use("user"); canEditSrc = !!(who && await who.canEdit()); }catch(e){ canEditSrc=false; }
+    if(canEditSrc){
+      try{ assets = window.claude && await window.claude.use("assets"); }catch(e){ assets=null; }
+      $("sources-wrap").hidden=false;
+      db.collection("sources").onSnapshot(function(snap){ sources=snap.docs.map(function(d){var o=Object.assign({},d.data());o.id=d.id;return o;}); if(!srcEdit) renderSources(); else renderSources(); },function(){ $("src-list").innerHTML='<p class="none">Sources are only available to editors.</p>'; });
+    }
   }
   renderWeeks(); render(); start();
 })();

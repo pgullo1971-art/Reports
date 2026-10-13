@@ -11,6 +11,7 @@ every day at 5:00 PM ET, following the steps below. Anyone can run the same step
 | `report/current` | `weekOf` (the Monday, `YYYY-MM-DD`), `lastSync` (ISO), `nextSync` (display text), `headline` (3–4 sentences), `highlights` (3–6 short strings), `sources` |
 | `accounts/<slug>` | One per account: `name, agent, persona, status, phase, goLive, goLiveLabel, goLiveConfirmed, pilotStart, pilotEnd, summary, updates[{date,text}], nextSteps[], metrics[{label,value}], owner, track, sources[], order, updatedAt` |
 | `weeks/<weekOf>` | The archived week: `asOf` (that week's Friday), `headline`, `highlights`, and `accounts` (a map of slug → full account object) |
+| `sources/<id>` | The data sources Paul manages on the page (editors only): `type` (`gmail`, `drive`, `zoom`, `calendar`, `file`, `note`), `account` (an account name or `All`), `target` (search, link or meeting name), `notes` (how to use it), `active`, `assetId` + `fileName` for uploaded files, and `lastUsedAt` + `lastUsedNote`, which the refresh writes back |
 
 - `status` is one of `live`, `on-track`, `watch`, `at-risk`, `pre`.
 - `persona` is one of `Medical Affairs`, `Market Access`, `Sales`, or a free label such as `New / scoping`.
@@ -37,15 +38,16 @@ So keep the data factual and current, and the analysis follows.
 ## Refresh steps
 
 1. **Read the current state.** Read `report/current`, list `accounts`, and list `weeks`. Note each document's `version`.
-2. **Research since `lastSync`.** This step is read-only: never send, draft, label or modify anything.
+2. **Read the data sources.** List `sources` and use every row with `active: true`. Follow each row's `notes`. `note` rows are standing rules for the whole refresh. For `file` rows, fetch the upload with the Artifact tool (`action: "read"`, the report URL, `path` = the row's `assetId`).
+3. **Research since `lastSync`.** This step is read-only: never send, draft, label or modify anything.
    - **Gmail**: search each account name and its key contacts. Also search meeting-summary senders: `from:do-not-reply@gong.io`, `from:no-reply@otter.ai`, `from:no-reply@zoom.us`, and Staircase.
    - **Google Calendar**: this week and next.
    - **Google Drive**: files modified since `lastSync`.
    - **Ignore** calendar "hypercare ends" placeholders. They were created from old launch dates.
-3. **Start a new week if needed.** If the current Monday (ET) is after `report.weekOf`:
+4. **Start a new week if needed.** If the current Monday (ET) is after `report.weekOf`:
    - Make sure `weeks/<old weekOf>` holds the final state from before this refresh.
    - Set `report.weekOf` to the new Monday.
-4. **Update each account that has news.**
+5. **Update each account that has news.**
    - `updates`: this week's items only, as `{date, text}`, at most 5. Drop items older than the report week.
    - Refresh `summary` and `nextSteps`. Never write watch items (leave `watch` empty).
    - Change `goLive` or `status` only on evidence. Set `goLiveConfirmed: false` when the client hasn't confirmed.
@@ -53,10 +55,11 @@ So keep the data factual and current, and the analysis follows.
    - Set `updatedAt` to now.
    - Leave accounts with no news untouched, so their staleness signal works.
    - Add a new account as `accounts/<slug>` with the next `order`.
-5. **Rewrite the report summary.** Write `report.headline` in Paul's voice: warm, direct, factual, 3–4 sentences, leading with the biggest move. Refresh `highlights`, and set `lastSync` and `nextSync`.
-6. **Archive this week.** Mirror the current state into `weeks/<weekOf>`: `asOf` = this week's Friday, the same headline and highlights, and the full accounts map.
-7. **Write it in one batch.** Use a single ArtifactData `batch`, pinning every existing document with `if_version`. If a pin fails, re-read that document and redo only that write.
-8. **Report back** in 3–5 lines: what changed, and anything that looked uncertain.
+6. **Rewrite the report summary.** Write `report.headline` in Paul's voice: warm, direct, factual, 3–4 sentences, leading with the biggest move. Refresh `highlights`, and set `lastSync` and `nextSync`.
+7. **Archive this week.** Mirror the current state into `weeks/<weekOf>`: `asOf` = this week's Friday, the same headline and highlights, and the full accounts map.
+8. **Write it in one batch.** Use a single ArtifactData `batch`, pinning every existing document with `if_version`. If a pin fails, re-read that document and redo only that write.
+8b. **Mark sources used.** In the same batch, update each source you used with `lastUsedAt` (now) and a short `lastUsedNote` (for example "3 threads" or "no new items").
+9. **Report back** in 3–5 lines: what changed, and anything that looked uncertain.
 
 ## Excluded accounts
 
