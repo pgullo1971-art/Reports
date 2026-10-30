@@ -1,0 +1,200 @@
+<title>Sports Report Button</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&display=swap">
+<style>
+  /* Layout: one centered card with today's date, an open-report button and a refresh button. */
+  :root {
+    --bg: #eef2f5;
+    --card: #ffffff;
+    --fg: #1d2a33;
+    --muted: #5b6b77;
+    --line: #d5dde3;
+    --accent: #0b4f8a;
+    --accent-hover: #083d6b;
+    --on-accent: #ffffff;
+    --ok: #1d7a46;
+    --warn: #8a5a00;
+    --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+    --body: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #11181d; --card: #1a242b; --fg: #e4ebef; --muted: #9aabb6;
+      --line: #2b3943; --accent: #7fb6ea; --accent-hover: #a0c9f0; --on-accent: #0e1a22;
+      --ok: #5cc98a; --warn: #f2c25e;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #11181d; --card: #1a242b; --fg: #e4ebef; --muted: #9aabb6;
+    --line: #2b3943; --accent: #7fb6ea; --accent-hover: #a0c9f0; --on-accent: #0e1a22;
+    --ok: #5cc98a; --warn: #f2c25e;
+    color-scheme: dark;
+  }
+
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.5;
+    display: grid;
+    place-items: center;
+    padding-inline: 16px;
+    padding-block: 32px;
+    box-sizing: border-box;
+  }
+  .card {
+    width: 100%;
+    max-width: 26rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 2rem 1.75rem;
+    display: grid;
+    gap: 1.25rem;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .eyebrow {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 2.1rem;
+    line-height: 1.1;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .teams { margin: 0; font-size: 0.9rem; color: var(--muted); }
+  .btn {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem 1.25rem;
+    border-radius: 10px;
+    border: 2px solid var(--accent);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--body);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  .btn:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .btn.secondary { background: transparent; color: var(--accent); }
+  .btn.secondary:hover { background: transparent; color: var(--accent-hover); }
+  .btn:disabled { opacity: 0.55; cursor: default; }
+  .actions { display: grid; gap: 0.75rem; }
+  .note { margin: 0; font-size: 0.875rem; color: var(--muted); }
+  .note.ok { color: var(--ok); }
+  .note.warn { color: var(--warn); }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+
+<main class="card">
+  <p class="eyebrow">Toronto Sports Desk</p>
+  <h1 id="today">Today</h1>
+  <p class="teams">Leafs · Jays · Raptors · TFC · NHL · MLB · AC Milan · Serie A · Premier League</p>
+  <div class="actions">
+    <a id="open" class="btn" href="https://claude.ai/artifact/3w5s88FfCN25zrvoRQDwZQ" target="_blank" rel="noopener">Open the sports report</a>
+    <button id="refresh" class="btn secondary" type="button" hidden>Get the latest news</button>
+  </div>
+  <p id="status" class="note">Opens the latest version of your report.</p>
+</main>
+
+<script>
+  // The "Sports report refresh" task searches the web and republishes the report page.
+  const TRIGGER_ID = "trig_01FGsTN9etX4TaaDCuAW89WE";
+  const SERVER = "Claude Code Remote";
+  const statusEl = document.getElementById("status");
+  const refreshBtn = document.getElementById("refresh");
+
+  function setStatus(text, tone) {
+    statusEl.textContent = text;
+    statusEl.className = "note" + (tone ? " " + tone : "");
+  }
+
+  function showDate() {
+    document.getElementById("today").textContent = new Date().toLocaleDateString(undefined, {
+      weekday: "long", month: "long", day: "numeric", year: "numeric"
+    });
+  }
+  showDate();
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) showDate(); });
+
+  function fmtTime(iso) {
+    const d = new Date(iso);
+    if (isNaN(d)) return "";
+    return d.toLocaleString(undefined, { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  }
+
+  function describeLastRun(run) {
+    if (!run || !run.fired_at) return { text: "Tap “Get the latest news” to refresh the report. It takes about 5–10 minutes.", tone: "" };
+    const when = fmtTime(run.fired_at);
+    const s = String(run.status || "").toUpperCase();
+    if (s.includes("SUCC")) return { text: "Last refreshed " + fmtTime(run.finished_at || run.fired_at) + ".", tone: "ok" };
+    if (s.includes("FAIL") || s.includes("ERROR")) return { text: "The refresh started " + when + " did not finish. Try again.", tone: "warn" };
+    return { text: "Gathering the latest news (started " + when + "). The report updates in about 5–10 minutes.", tone: "" };
+  }
+
+  function connectorFix(err) {
+    switch (err && err.code) {
+      case "needs_reauth": return "Reconnect Claude Code Remote in claude.ai Settings → Connectors to refresh the report.";
+      case "server_not_connected":
+      case "selection_required": return "Add the Claude Code Remote connector in claude.ai Settings → Connectors to refresh the report.";
+      case "not_in_manifest":
+      case "approval_required": return "Refreshing needs your approval. Tap the button again and choose Allow.";
+      case "blocked_by_policy": return "Your organization's settings block refreshing from this page.";
+      default: return null;
+    }
+  }
+
+  (async () => {
+    const mcp = await claude.use("mcp").catch(() => null);
+    if (!mcp) return; // No connector access here: the open button still works.
+    refreshBtn.hidden = false;
+    setStatus("Tap “Get the latest news” to refresh the report. It takes about 5–10 minutes.");
+
+    mcp.watchTool(SERVER, "get_trigger", { trigger_id: TRIGGER_ID }, (ev) => {
+      if (ev.type === "data") {
+        const p = ev.result.payload || {};
+        const run = (p.trigger || p).last_run;
+        const d = describeLastRun(run);
+        setStatus(d.text, d.tone);
+      } else {
+        const fix = connectorFix(ev.error);
+        if (fix) setStatus(fix, "warn");
+      }
+    }, { refetchInterval: 60000 });
+
+    refreshBtn.addEventListener("click", async () => {
+      refreshBtn.disabled = true;
+      setStatus("Starting the refresh…");
+      try {
+        await mcp.callTool(SERVER, "fire_trigger", { trigger_id: TRIGGER_ID });
+        setStatus("Refresh started. Claude is searching the web now; open the report in about 5–10 minutes.", "ok");
+        mcp.invalidate(SERVER, "get_trigger").catch(() => {});
+      } catch (err) {
+        const fix = connectorFix(err);
+        if (fix) setStatus(fix, "warn");
+        else if (err && err.code === "tool_error") setStatus("The refresh could not start: " + err.message, "warn");
+        else setStatus("The refresh may or may not have started. Check the report in a few minutes before trying again.", "warn");
+      } finally {
+        setTimeout(() => { refreshBtn.disabled = false; }, 30000);
+      }
+    });
+  })();
+</script>
