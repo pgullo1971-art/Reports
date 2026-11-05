@@ -1,9 +1,10 @@
-<title>Daily Text Button</title>
+<title>Daily text</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=Source+Sans+3:wght@400;600&display=swap">
 <style>
-  /* Layout: one centered card holding today's date and a single large button. */
+  /* Layout: one centered card holding today's date and a single large button that tries JW Library, then falls back to wol.jw.org. */
   :root {
     --bg: #eef2f5;
     --card: #ffffff;
@@ -38,7 +39,8 @@
     line-height: 1.5;
     display: grid;
     place-items: center;
-    padding-inline: 16px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
     padding-block: 32px;
     box-sizing: border-box;
   }
@@ -83,36 +85,100 @@
     transition: background-color 0.15s ease;
   }
   .btn:hover { background: var(--accent-hover); }
-  .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .btn:focus-visible, .alt:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
   .note {
     margin: 0;
     font-size: 0.875rem;
     color: var(--muted);
   }
-  .note a { color: var(--accent); }
+  .alt {
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
   @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
 </style>
 
 <main class="card">
   <p class="eyebrow">Examining the Scriptures Daily</p>
   <h1 id="today">Today</h1>
-  <a id="go" class="btn" href="https://wol.jw.org/en/wol/h/r1/lp-e" target="_blank" rel="noopener">Read today’s text on jw.org</a>
-  <p class="note">Opens the Watchtower Online Library at <span id="path">today’s date</span>.</p>
+  <a id="go" class="btn" href="https://wol.jw.org/en/wol/h/r1/lp-e">Daily text</a>
+  <p class="note" id="note" role="status">Opens in JW Library. If the app isn't on this device, it opens on wol.jw.org instead.</p>
+  <a id="alt" class="alt" href="https://wol.jw.org/en/wol/h/r1/lp-e" target="_blank" rel="noopener">Read on wol.jw.org instead</a>
 </main>
 
 <script>
-  // Point the button at today's daily text, using the viewer's local date.
-  function update() {
+  // The button tries JW Library first (its app link for the daily text). A web page can't
+  // check whether an app is installed, so if this page is still in front ~2 s after the
+  // tap, the app didn't open: the button then becomes a wol.jw.org link. That outcome is
+  // remembered on this device, with a small link to try the app again.
+  const KEY = "daily-text-app-missing";
+  const go = document.getElementById("go");
+  const alt = document.getElementById("alt");
+  const note = document.getElementById("note");
+  let appMissing = false;
+  try { appMissing = localStorage.getItem(KEY) === "1"; } catch {}
+
+  function links() {
     const d = new Date();
     const y = d.getFullYear(), m = d.getMonth() + 1, day = d.getDate();
-    document.getElementById("go").href =
-      "https://wol.jw.org/en/wol/dt/r1/lp-e/" + y + "/" + m + "/" + day;
-    document.getElementById("today").textContent = d.toLocaleDateString(undefined, {
-      weekday: "long", month: "long", day: "numeric", year: "numeric"
-    });
-    document.getElementById("path").textContent = y + "/" + m + "/" + day;
+    const ymd = String(y) + String(m).padStart(2, "0") + String(day).padStart(2, "0");
+    return {
+      app: "jwlibrary:///finder?srcid=jwlshare&wtlocale=E&prefer=lang&alias=daily-text&date=" + ymd,
+      web: "https://wol.jw.org/en/wol/dt/r1/lp-e/" + y + "/" + m + "/" + day,
+      label: d.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" })
+    };
   }
+
+  function update() {
+    const l = links();
+    document.getElementById("today").textContent = l.label;
+    alt.href = l.web;
+    if (appMissing) {
+      go.href = l.web;
+      go.target = "_blank";
+      go.rel = "noopener";
+      note.textContent = "Opens on wol.jw.org. JW Library didn't open on this device last time.";
+      alt.textContent = "Try JW Library again";
+      alt.removeAttribute("target");
+    } else {
+      go.href = l.app;
+      go.removeAttribute("target");
+      note.textContent = "Opens in JW Library. If the app isn't on this device, it opens on wol.jw.org instead.";
+      alt.textContent = "Read on wol.jw.org instead";
+      alt.target = "_blank";
+    }
+  }
+
+  let timer = 0;
+  function appOpened() { clearTimeout(timer); timer = 0; }
+  window.addEventListener("blur", appOpened);
+  window.addEventListener("pagehide", appOpened);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) appOpened(); else update();
+  });
+
+  go.addEventListener("click", () => {
+    if (appMissing) return; // plain wol.jw.org link
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = 0;
+      appMissing = true;
+      try { localStorage.setItem(KEY, "1"); } catch {}
+      update();
+      note.textContent = "JW Library didn't open, so here's the text on wol.jw.org. Tap the button.";
+      go.focus();
+    }, 2000);
+  });
+
+  alt.addEventListener("click", (e) => {
+    if (!appMissing) return; // plain wol.jw.org link
+    e.preventDefault();
+    appMissing = false;
+    try { localStorage.removeItem(KEY); } catch {}
+    update();
+    go.click();
+  });
+
   update();
-  // Refresh if the page stays open past midnight.
-  document.addEventListener("visibilitychange", () => { if (!document.hidden) update(); });
 </script>
