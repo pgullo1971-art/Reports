@@ -244,9 +244,9 @@
 
   <nav id="nav" aria-label="Teams and leagues" hidden></nav>
   <main id="content">
-    <div class="empty"><strong>Your brief will appear here.</strong> A new one is written every morning with scores and news for the Leafs, Jays, Raptors, Toronto FC and AC Milan, plus Serie A, the Premier League, the NHL and MLB.</div>
+    <div class="empty"><strong>Your brief will appear here.</strong> It updates at 8 AM, noon, 4 PM and 8 PM with scores and news for the Leafs, Jays, Raptors, Toronto FC and AC Milan, plus Serie A, the Premier League, the NHL and MLB.</div>
   </main>
-  <p class="foot">Scores and stories are gathered and summarized by Claude each morning. Tap any headline or "Read story" to open the full article at its source.</p>
+  <p class="foot">Scores and stories are gathered and summarized by Claude four times a day. Tap any headline or "Read story" to open the full article at its source.</p>
 </div>
 
 <script>
@@ -377,7 +377,7 @@
       } else if (code === "server_unavailable" || code === "upstream_error") {
         syncNote("Couldn't confirm the sync started. Give it 5 minutes before trying again, since it may already be running.");
       } else {
-        syncNote("Sync isn't available here. Your brief still updates every morning at 5:52 AM.");
+        syncNote("Sync isn't available here. Your brief still updates by itself at 8 AM, noon, 4 PM and 8 PM.");
       }
     }
   }
@@ -417,7 +417,7 @@
       if (!snap.metadata.fromCache) { clearTimeout(timer); showStatus(""); }
       briefs = snap.docs.map((d) => d.data()).filter((b) => b && typeof b.date === "string");
       if (!briefs.length) {
-        $("updated").textContent = "No brief yet. The first one arrives tomorrow morning.";
+        $("updated").textContent = "No brief yet. The next update arrives within a few hours.";
         return;
       }
       const newest = briefs[0].generatedAt || "";
