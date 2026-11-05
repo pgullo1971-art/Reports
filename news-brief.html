@@ -1,0 +1,310 @@
+<title>Morning News Brief</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  /* Layout: a reading column with a sticky section bar; each desk (Canada, U.S., World, Health tech) is a list of story entries. */
+  :root {
+    --bg: #f3f5f7;
+    --surface: #ffffff;
+    --fg: #17212b;
+    --muted: #5a6876;
+    --line: #dde3e9;
+    --accent: #1f5f8b;
+    --ca: #b4372f;
+    --us: #2b56a8;
+    --world: #2f7a57;
+    --health: #7a4bb0;
+    --display: "Newsreader", Georgia, "Times New Roman", serif;
+    --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f151b; --surface: #172029; --fg: #e3e9ee; --muted: #98a6b3; --line: #26323d;
+      --accent: #7db6dc; --ca: #ec8a80; --us: #8fb0ee; --world: #7cc7a2; --health: #c3a2ec;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f151b; --surface: #172029; --fg: #e3e9ee; --muted: #98a6b3; --line: #26323d;
+    --accent: #7db6dc; --ca: #ec8a80; --us: #8fb0ee; --world: #7cc7a2; --health: #c3a2ec;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .wrap {
+    max-width: 46rem;
+    margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2rem 4rem;
+    display: grid;
+    gap: 2rem;
+  }
+
+  header { display: grid; gap: 0.5rem; }
+  .kicker {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 650;
+    font-size: clamp(2rem, 6vw, 2.75rem);
+    line-height: 1.1;
+    text-wrap: balance;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .meta select {
+    font: inherit;
+    color: var(--fg);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.3rem 0.5rem;
+  }
+  .meta select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .status { font-size: 0.85rem; color: var(--muted); }
+
+  body::before {
+    content: ""; position: fixed; inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg);
+  }
+  nav {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 5;
+    background: var(--bg);
+    padding-block: 0.6rem;
+    margin-block: -0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--fg);
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  nav a:hover { border-color: var(--desk); }
+  nav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .dot { width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--desk); flex: none; }
+  .count { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  section { display: grid; gap: 0.75rem; scroll-margin-top: 4rem; }
+  section h2 {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--display);
+    font-weight: 650;
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  section h2 .dot { width: 0.7rem; height: 0.7rem; }
+
+  .stories { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; }
+  .story {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1rem 1.15rem;
+    display: grid;
+    gap: 0.4rem;
+    min-width: 0;
+  }
+  .story h3 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 650;
+    font-size: 1.2rem;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+  .story h3 a { color: inherit; text-decoration: none; }
+  .story h3 a:hover { text-decoration: underline; text-decoration-color: var(--desk); text-underline-offset: 3px; }
+  .story p { margin: 0; color: var(--fg); max-width: 65ch; }
+  .story footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem 1rem;
+    padding-top: 0.25rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .read {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .read:hover { text-decoration: underline; }
+  .read:focus-visible, .story h3 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+  .empty {
+    background: var(--surface);
+    border: 1px dashed var(--line);
+    border-radius: 10px;
+    padding: 1.5rem;
+    color: var(--muted);
+  }
+  .empty strong { color: var(--fg); }
+  .foot { font-size: 0.8rem; color: var(--muted); }
+</style>
+
+<div class="wrap">
+  <header>
+    <p class="kicker">Canada · United States · World · Health tech</p>
+    <h1 id="title">Morning News Brief</h1>
+    <div class="meta">
+      <span id="updated">Loading today's brief…</span>
+      <label for="day-picker" hidden id="picker-label">Earlier briefs
+        <select id="day-picker"></select>
+      </label>
+    </div>
+    <p class="status" id="status" hidden></p>
+  </header>
+
+  <nav id="nav" aria-label="Sections" hidden></nav>
+  <main id="content">
+    <div class="empty"><strong>Your brief will appear here.</strong> A new one is written every morning with the top stories from Canada, the U.S. and the world, plus politics and health technology.</div>
+  </main>
+  <p class="foot">Headlines are gathered and summarized by Claude each morning. Tap any headline or "Read story" to open the full article at its source.</p>
+</div>
+
+<script>
+  const DESK_COLORS = { canada: "var(--ca)", us: "var(--us)", world: "var(--world)", health: "var(--health)" };
+  const $ = (id) => document.getElementById(id);
+  let briefs = [];
+  let selected = null;
+
+  function el(tag, attrs = {}, text) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (k === "style") n.style.cssText = v; else n.setAttribute(k, v);
+    }
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  function safeUrl(u) {
+    try { const x = new URL(u); return x.protocol === "https:" || x.protocol === "http:" ? x.href : null; }
+    catch { return null; }
+  }
+  function prettyDate(iso) {
+    const [y, m, d] = iso.split("-").map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+  }
+
+  function render() {
+    const brief = briefs.find((b) => b.date === selected) || briefs[0];
+    if (!brief) return;
+    selected = brief.date;
+    $("title").textContent = prettyDate(brief.date);
+    const t = brief.generatedAt ? new Date(brief.generatedAt) : null;
+    $("updated").textContent = t && !isNaN(t)
+      ? "Updated " + t.toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })
+      : "Morning edition";
+
+    const picker = $("day-picker");
+    picker.replaceChildren(...briefs.map((b) => {
+      const o = el("option", { value: b.date }, prettyDate(b.date));
+      if (b.date === selected) o.selected = true;
+      return o;
+    }));
+    $("picker-label").hidden = briefs.length < 2;
+
+    const nav = $("nav");
+    const main = $("content");
+    nav.replaceChildren();
+    main.replaceChildren();
+    const sections = Array.isArray(brief.sections) ? brief.sections : [];
+    for (const s of sections) {
+      const stories = Array.isArray(s.stories) ? s.stories : [];
+      if (!stories.length) continue;
+      const desk = DESK_COLORS[s.id] || "var(--accent)";
+      const anchor = "desk-" + String(s.id || "").replace(/[^a-z0-9-]/gi, "");
+
+      const chip = el("a", { href: "#" + anchor, style: "--desk:" + desk });
+      chip.append(el("span", { class: "dot" }), document.createTextNode(s.title || ""), el("span", { class: "count" }, String(stories.length)));
+      nav.append(chip);
+
+      const sec = el("section", { id: anchor, style: "--desk:" + desk });
+      const h2 = el("h2");
+      h2.append(el("span", { class: "dot", "aria-hidden": "true" }), document.createTextNode(s.title || ""));
+      const list = el("ul", { class: "stories" });
+      for (const st of stories) {
+        const url = safeUrl(st.url);
+        const li = el("li", { class: "story" });
+        const h3 = el("h3");
+        if (url) h3.append(el("a", { href: url, target: "_blank", rel: "noopener" }, st.headline || ""));
+        else h3.textContent = st.headline || "";
+        li.append(h3, el("p", {}, st.summary || ""));
+        const f = el("footer");
+        f.append(el("span", {}, st.source || ""));
+        if (url) f.append(el("a", { class: "read", href: url, target: "_blank", rel: "noopener" }, "Read story ↗"));
+        li.append(f);
+        list.append(li);
+      }
+      sec.append(h2, list);
+      main.append(sec);
+    }
+    nav.hidden = !nav.children.length;
+  }
+
+  $("day-picker").addEventListener("change", (e) => { selected = e.target.value; render(); window.scrollTo(0, 0); });
+
+  function showStatus(msg) { $("status").textContent = msg; $("status").hidden = !msg; }
+
+  (async () => {
+    const db = await claude.use("db");
+    if (!db) {
+      $("updated").textContent = "Sign in to claude.ai to see your brief.";
+      return;
+    }
+    const timer = setTimeout(() => showStatus("Your brief is taking a while to load. Check your connection."), 10000);
+    db.collection("briefs").orderBy("date", "desc").limit(14).onSnapshot((snap) => {
+      if (!snap.metadata.fromCache) { clearTimeout(timer); showStatus(""); }
+      briefs = snap.docs.map((d) => d.data()).filter((b) => b && typeof b.date === "string");
+      if (!briefs.length) {
+        $("updated").textContent = "No brief yet. The first one arrives tomorrow morning.";
+        return;
+      }
+      if (!briefs.some((b) => b.date === selected)) selected = briefs[0].date;
+      render();
+    }, () => {
+      clearTimeout(timer);
+      showStatus("The brief couldn't load. Reopen the page to try again.");
+    });
+  })();
+</script>
